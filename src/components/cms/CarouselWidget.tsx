@@ -5,12 +5,13 @@ import {
    T_CarouselWidgetItemVm,
    T_CarouselWidgetVm,
 } from "../../types/CmsTypes";
-import { Carousel } from "react-bootstrap";
+import { Carousel, Modal } from "react-bootstrap";
 import { getImage } from "../../webApis/CoreWebApi";
 
 type T_Props = { instance: T_WidgetInstanceViewModel };
 
 const CarouselWidget: FC<T_Props> = ({ instance }) => {
+   const [dev, setDev] = useState(false);
    const [carouselData, setCarouselData] = useState<T_CarouselWidgetVm | null>(
       null
    );
@@ -36,8 +37,12 @@ const CarouselWidget: FC<T_Props> = ({ instance }) => {
    return (
       <>
          <div>
-            <div style={{ fontSize: "9px" }}>
-               /src/components/cms/CarouselWidget.tsx
+            <div
+               className="row"
+               style={{ fontSize: "9px", cursor: "pointer" }}
+               onClick={() => setDev(true)}
+            >
+               [ CasouselWidget - JSON ]
             </div>
             <div className="container-sm">
                <div>
@@ -63,9 +68,14 @@ const CarouselWidget: FC<T_Props> = ({ instance }) => {
             </div>
          </div>
 
-         {/* <div className="small">
-            <pre>{JSON.stringify(carouselData, null, 3)}</pre>
-         </div> */}
+         <Modal show={dev} onHide={() => setDev(false)}>
+            <Modal.Body>
+               <Modal.Header closeButton>CarouselWidget.tsx</Modal.Header>
+               <div style={{ fontSize: "12px" }}>
+                  <pre>{JSON.stringify(carouselData, null, 3)}</pre>
+               </div>
+            </Modal.Body>
+         </Modal>
       </>
    );
 };

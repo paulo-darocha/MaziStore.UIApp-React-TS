@@ -16,7 +16,9 @@ export const getProductWidgetDetails = async (
 };
 
 export const getProductDetails = async (id: number) => {
-   const response = await axios.get(`${productApi}/${id}`);
+   const response = await axios.get(`${productApi}/${id}`, {
+      withCredentials: true,
+   });
    console.log(`${response.status}: ${response.statusText}`);
    if (response.status === 200) {
       return response.data;
