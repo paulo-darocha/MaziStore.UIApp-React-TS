@@ -3,13 +3,19 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { T_LoginViewModel } from "../../types/AuthTypes";
 import { Button } from "react-bootstrap";
+import { login } from "../../webApis/AuthWebApi";
+import { OneResponse } from "../../types/CoreTypes";
+import { useAppDispatch } from "../../redux-store/reduxStore";
+import { loginRedux } from "../../redux-store/loggedReducer";
 
 type T_Props = { url?: string };
 
 const Login: FC<T_Props> = ({ url = "" }) => {
+   const [message, setMessage] = useState("");
    const [id, setId] = useState(0);
    const param = useParams();
    const navigate = useNavigate();
+   const dispatch = useAppDispatch();
 
    const {
       register,
@@ -25,10 +31,14 @@ const Login: FC<T_Props> = ({ url = "" }) => {
    });
 
    const onClickSubmit = (data: T_LoginViewModel) => {
-      // login(data).then((response) => {
-      //    dispatch(addUser(response));
-      //    navigate(`${url}/${id}`);
-      // });
+      login(data).then((res: OneResponse<string>) => {
+         if (res.error) {
+            setMessage(res.msg);
+         } else {
+            dispatch(loginRedux(true));
+            navigate(`${url ?? "/"}/${id !== 0 ? id : ""}`);
+         }
+      });
    };
 
    useEffect(() => {
@@ -42,7 +52,7 @@ const Login: FC<T_Props> = ({ url = "" }) => {
       <div>
          <h4>Login</h4>
          <div style={{ fontSize: "10px" }}>
-            [returUrl: {`${url}/${id !== 0 ? id : ""}`}]
+            [returUrl: {`${url ?? "/"}/${id !== 0 ? id : ""}`}]
          </div>
          <div className="row">
             <div className="col-7 text-end pe-3">
@@ -99,6 +109,9 @@ const Login: FC<T_Props> = ({ url = "" }) => {
                   </div>
 
                   <div>
+                     {message && (
+                        <div className="text-danger mb-3 h6">{message}</div>
+                     )}
                      <Button type="submit" className="mx-4">
                         Login
                      </Button>

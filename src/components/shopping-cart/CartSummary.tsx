@@ -1,11 +1,13 @@
 import { FC, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { T_CartVm } from "../../types/ShoppingCartTypes";
+import { useNavigate } from "react-router-dom";
 
 type T_Props = { summary: T_CartVm };
 
 const CartSummary: FC<T_Props> = ({ summary }) => {
    const [dev, setDev] = useState(false);
+   const navigate = useNavigate();
 
    return (
       <div className="mt-5 ms-5">
@@ -36,7 +38,12 @@ const CartSummary: FC<T_Props> = ({ summary }) => {
             </table>
 
             <div className="d-grid pt-2">
-               <button className="btn btn-primary">Process to Checkout</button>
+               <button
+                  className="btn btn-primary"
+                  onClick={() => navigate("/checkout")}
+               >
+                  Process to Checkout
+               </button>
             </div>
             <br />
             <div className="row pt-1 pb-3">

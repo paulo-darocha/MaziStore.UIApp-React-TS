@@ -7,10 +7,12 @@ import {
 } from "../../types/CmsTypes";
 import { Carousel, Modal } from "react-bootstrap";
 import { getImage } from "../../webApis/CoreWebApi";
+import { useNavigate } from "react-router-dom";
 
 type T_Props = { instance: T_WidgetInstanceViewModel };
 
 const CarouselWidget: FC<T_Props> = ({ instance }) => {
+   const navigate = useNavigate();
    const [dev, setDev] = useState(false);
    const [carouselData, setCarouselData] = useState<T_CarouselWidgetVm | null>(
       null
@@ -47,10 +49,15 @@ const CarouselWidget: FC<T_Props> = ({ instance }) => {
             <div className="container-sm">
                <div>
                   {carouselData && images && (
-                     <Carousel interval={2000}>
+                     <Carousel interval={2000} style={{ cursor: "pointer" }}>
                         {carouselData.items.map(
                            (item: T_CarouselWidgetItemVm, i: number) => (
-                              <Carousel.Item key={item.caption}>
+                              <Carousel.Item
+                                 key={item.caption}
+                                 onClick={() =>
+                                    navigate(`/category${item.targetUrl}`)
+                                 }
+                              >
                                  <img
                                     src={URL.createObjectURL(images[i])}
                                     className="w-100"

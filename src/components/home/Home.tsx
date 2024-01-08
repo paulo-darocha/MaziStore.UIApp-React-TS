@@ -36,7 +36,10 @@ const Home: FC<T_Props> = ({ notFound = false }) => {
             </div>
             <div
                className="row"
-               style={{ fontSize: "9px", cursor: "pointer" }}
+               style={{
+                  fontSize: "9px",
+                  cursor: "pointer",
+               }}
                onClick={() => setDev(true)}
             >
                [ Home - JSON ]

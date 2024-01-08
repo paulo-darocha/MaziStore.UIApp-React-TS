@@ -3,9 +3,13 @@ import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { T_RegisterViewModel } from "../../types/AuthTypes";
 import { useState } from "react";
+import { registerNewUser } from "../../webApis/AuthWebApi";
+import { OneResponse } from "../../types/CoreTypes";
 
 const Registration = () => {
    const [dev, setDev] = useState(false);
+   const [hasError, setHasError] = useState(false);
+   const [message, setMessage] = useState<string | null>(null);
 
    const {
       register,
@@ -25,7 +29,10 @@ const Registration = () => {
    const navigate = useNavigate();
 
    const onClickSubmit = (data: T_RegisterViewModel) => {
-      // registerUser(data).then(() => navigate("/"));
+      registerNewUser(data).then((res: OneResponse<string>) => {
+         setHasError(res.error);
+         setMessage(res.msg);
+      });
    };
 
    return (
@@ -169,21 +176,53 @@ const Registration = () => {
                         </div>
                      </div>
 
-                     <div className="row form-group my-3">
-                        <label className="col-md-3 col-form-label h5"></label>
-                        <div className="col-md-9">
-                           <Button className="mx-4" type="submit">
-                              Submit
-                           </Button>
-                           <Button
-                              variant="secondary"
-                              type="button"
-                              onClick={() => navigate("/")}
-                           >
-                              Cancel
-                           </Button>
+                     {message && !hasError ? (
+                        <div className="row form-group my-3">
+                           <div className="mt-1 mb-3 h6 text-success">
+                              {message}
+                           </div>
+                           <label className="col-md-3 col-form-label h5"></label>
+                           <div className="col-md-9">
+                              <Button
+                                 className="mx-4"
+                                 type="submit"
+                                 onClick={() => navigate("/login")}
+                              >
+                                 Login
+                              </Button>
+                              <Button
+                                 variant="secondary"
+                                 type="button"
+                                 onClick={() => navigate("/")}
+                              >
+                                 Ok
+                              </Button>
+                           </div>
                         </div>
-                     </div>
+                     ) : (
+                        <div className="row form-group my-3">
+                           <div className="mt-1 mb-3 h6 text-danger">
+                              {message}
+                           </div>
+                           <label className="col-md-3 col-form-label h5"></label>
+                           <div className="col-md-9">
+                              <Button
+                                 className="mx-4"
+                                 type="submit"
+                                 onBlur={() => setMessage("")}
+                              >
+                                 Submit
+                              </Button>
+                              <Button
+                                 variant="secondary"
+                                 type="button"
+                                 onClick={() => navigate("/")}
+                              >
+                                 Cancel
+                              </Button>
+                           </div>
+                        </div>
+                     )}
                   </div>
 
                   <div className="col-md-5">

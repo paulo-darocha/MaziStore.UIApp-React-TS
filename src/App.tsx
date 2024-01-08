@@ -7,6 +7,8 @@ import CartList from "./components/shopping-cart/CartList";
 import ProductsInCategory from "./components/categories/ProductsInCategory";
 import Login from "./components/auth/Login";
 import Registration from "./components/auth/Registration";
+import Logout from "./components/auth/Logout";
+import Checkout from "./components/orders/Checkout";
 
 function App() {
    return (
@@ -30,6 +32,8 @@ function App() {
                      <Route path="/login/:url?" element={<Login />} />
                      <Route path="/register" element={<Registration />} />
                      <Route path="*" element={<Home notFound={true} />} />
+                     <Route path="/logout" element={<Logout />} />
+                     <Route path="/checkout" element={<Checkout />} />
                   </Routes>
                </div>
             </div>
