@@ -6,11 +6,16 @@ import {
 import { Button, ButtonGroup, Modal } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import ProductCartModal from "./ProductCartModal";
-import { sendCartToServer } from "../../webApis/ShoppingCartWebApi";
+import {
+   getCartItemsCount,
+   sendCartToServer,
+} from "../../webApis/ShoppingCartWebApi";
 import {
    T_AddToCartModel,
    T_AddToCartResultVm,
 } from "../../types/ShoppingCartTypes";
+import { useAppDispatch } from "../../redux-store/reduxStore";
+import { setItemsCount } from "../../redux-store/cartItemsReducer";
 
 type T_Props = {
    product: T_ProductDetailVariation | T_ProductDetail;
@@ -25,6 +30,7 @@ const ProductPrices: FC<T_Props> = ({ product, pending }) => {
    const [dev, setDev] = useState(false);
 
    const navigate = useNavigate();
+   const dispatch = useAppDispatch();
 
    const onAlterQuantity = (action: "add" | "subtract") => {
       if (action == "add") {
@@ -50,10 +56,16 @@ const ProductPrices: FC<T_Props> = ({ product, pending }) => {
       if (pending) {
          setMessage("Please choose all options");
       } else {
-         sendCartToServer(data).then((res) => setModalData(res));
+         sendCartToServer(data).then((res) => {
+            setModalData(res);
+            getCartItemsCount().then((res) => dispatch(setItemsCount(res)));
+         });
+
          setShow(true);
       }
    };
+
+   
 
    const onCloseModal = () => {
       () => setShow(false);

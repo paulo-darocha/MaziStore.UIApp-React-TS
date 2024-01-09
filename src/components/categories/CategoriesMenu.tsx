@@ -5,6 +5,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Nav from "react-bootstrap/Nav";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 const CategoriesMenu = () => {
    const [categories, setCategories] = useState<T_CategoryMenuItem[] | null>(
@@ -36,7 +37,7 @@ const CategoriesMenu = () => {
                </Nav.Item>
                {categories &&
                   categories.map((category: T_CategoryMenuItem) => (
-                     <>
+                     <React.Fragment key={category.id}>
                         {category.childItems.length > 0 ? (
                            <NavDropdown title={`${category.name}`}>
                               {category.childItems.map(
@@ -62,7 +63,7 @@ const CategoriesMenu = () => {
                               <Nav.Link>{category.name}</Nav.Link>
                            </Nav.Item>
                         )}
-                     </>
+                     </React.Fragment>
                   ))}
             </Nav>
          </div>

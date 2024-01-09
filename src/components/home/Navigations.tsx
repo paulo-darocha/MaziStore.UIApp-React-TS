@@ -1,25 +1,35 @@
 import { faHomeAlt, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Dropdown, Nav, NavItem } from "react-bootstrap";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { checkIfLogged } from "../../webApis/AuthWebApi";
-import { useAppSelector } from "../../redux-store/reduxStore";
+import { useAppDispatch, useAppSelector } from "../../redux-store/reduxStore";
+import { loginRedux } from "../../redux-store/loggedReducer";
+import { getCartItemsCount } from "../../webApis/ShoppingCartWebApi";
+import { setItemsCount } from "../../redux-store/cartItemsReducer";
+import { setUsername } from "../../redux-store/userNameReducer";
 
 const Navigation = () => {
    const navigate = useNavigate();
-   const [username, setUsername] = useState<string | null>(null);
+   const count = useAppSelector((x) => x.items);
    const loggedInRedux = useAppSelector((x) => x.logged);
+   const username = useAppSelector((x) => x.username);
+   const dispatch = useAppDispatch();
 
    useEffect(() => {
       checkIfLogged().then((res) => {
          if (res.logged) {
-            setUsername(res.user.fullName);
+            dispatch(loginRedux(res));
+            dispatch(setUsername(res.user.fullName));
          } else {
-            setUsername(null);
+            dispatch(setUsername(""));
          }
       });
-   }, [loggedInRedux]);
+      getCartItemsCount().then((res) => dispatch(setItemsCount(res)));
+   }, [dispatch]);
+
+   useEffect(() => {}, [loggedInRedux]);
 
    return (
       <div>
@@ -57,9 +67,11 @@ const Navigation = () => {
                      onClick={() => navigate("/cart")}
                   >
                      <FontAwesomeIcon icon={faShoppingCart} />
-                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        0
-                     </span>
+                     {count > 0 && (
+                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                           {count}
+                        </span>
+                     )}
                   </Button>
                </Nav.Item>
 

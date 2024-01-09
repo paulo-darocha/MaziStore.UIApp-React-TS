@@ -11,3 +11,35 @@ export type T_RegisterViewModel = {
    confirmPassword: string;
    callbackUrl?: string;
 };
+
+export type T_OrderHistoryListItem = {
+   id: number;
+   createdOn: Date;
+   subTotal: number;
+   subTotalString: string;
+   orderStatus: T_OrderStatus;
+   orderItems: T_OrderHistoryProductVm[];
+};
+
+export type T_OrderHistoryProductVm = {
+   productId: number;
+   productName: string;
+   productOptions: string[];
+   productOptionString: string;
+   quantity: number;
+   thumbnailImage: string;
+};
+
+export type T_OrderStatus =
+   | "New"
+   | "OnHold"
+   | "PendingPayment"
+   | "PaymentReceived"
+   | "PaymentFailed"
+   | "Invoiced"
+   | "Shipping"
+   | "Shipped"
+   | "Complete"
+   | "Canceled"
+   | "Refunded"
+   | "Closed";

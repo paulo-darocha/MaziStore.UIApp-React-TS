@@ -1,19 +1,18 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { T_LoginViewModel } from "../../types/AuthTypes";
 import { Button } from "react-bootstrap";
-import { login } from "../../webApis/AuthWebApi";
+import { checkIfLogged, login } from "../../webApis/AuthWebApi";
 import { OneResponse } from "../../types/CoreTypes";
 import { useAppDispatch } from "../../redux-store/reduxStore";
 import { loginRedux } from "../../redux-store/loggedReducer";
+import { setUsername } from "../../redux-store/userNameReducer";
 
 type T_Props = { url?: string };
 
-const Login: FC<T_Props> = ({ url = "" }) => {
+const Login: FC<T_Props> = ({ url }) => {
    const [message, setMessage] = useState("");
-   const [id, setId] = useState(0);
-   const param = useParams();
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
 
@@ -36,24 +35,18 @@ const Login: FC<T_Props> = ({ url = "" }) => {
             setMessage(res.msg);
          } else {
             dispatch(loginRedux(true));
-            navigate(`${url ?? "/"}/${id !== 0 ? id : ""}`);
+            checkIfLogged().then((res) => {
+               dispatch(setUsername(res.user.fullName));
+               navigate(`${url ?? "/home"}`);
+            });
          }
       });
    };
 
-   useEffect(() => {
-      const idNum = Number(param.id);
-      if (idNum > 0) {
-         setId(idNum);
-      }
-   }, [url, param]);
-
    return (
       <div>
          <h4>Login</h4>
-         <div style={{ fontSize: "10px" }}>
-            [returUrl: {`${url ?? "/"}/${id !== 0 ? id : ""}`}]
-         </div>
+         <div style={{ fontSize: "10px" }}>[returUrl: {`${url ?? "/"}`}]</div>
          <div className="row">
             <div className="col-7 text-end pe-3">
                <form onSubmit={handleSubmit(onClickSubmit)}>

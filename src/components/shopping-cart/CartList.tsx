@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
    getCartDetails,
+   getCartItemsCount,
    removeItemFromCart,
    updateCartQuantity,
 } from "../../webApis/ShoppingCartWebApi";
@@ -8,12 +9,15 @@ import { T_CartQuantityUpdate, T_CartVm } from "../../types/ShoppingCartTypes";
 import CartProductsTable from "./CartProductsTable";
 import CartSummary from "./CartSummary";
 import { Modal } from "react-bootstrap";
+import { useAppDispatch } from "../../redux-store/reduxStore";
+import { setItemsCount } from "../../redux-store/cartItemsReducer";
 
 export type T_Update = "add" | "sub" | "del";
 
 const CartList = () => {
    const [dev, setDev] = useState(false);
    const [cart, setCart] = useState<T_CartVm | null>(null);
+   const dispatch = useAppDispatch();
 
    useEffect(() => {
       getCartDetails().then((res) => setCart(res));
@@ -46,6 +50,10 @@ const CartList = () => {
             break;
       }
    };
+
+   useEffect(() => {
+      getCartItemsCount().then((res) => dispatch(setItemsCount(res)));
+   }, [cart, dispatch]);
 
    return (
       <div>

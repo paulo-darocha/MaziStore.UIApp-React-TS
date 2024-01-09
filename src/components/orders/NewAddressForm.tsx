@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, Dispatch, FC, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { T_AddressFormVm } from "../../types/OrderTypes";
@@ -7,9 +7,10 @@ import {
    sendAddressToServer,
 } from "../../webApis/CoreWebApi";
 
+
 type T_Props = {
    addressForm?: T_AddressFormVm;
-   newAddress: (created: boolean) => void;
+   newAddress?: Dispatch<React.SetStateAction<number>>;
 };
 type T_SelectState = { id: string; name: string };
 
@@ -33,16 +34,16 @@ const NewAddressForm: FC<T_Props> = ({ addressForm, newAddress }) => {
    };
 
    const onClickSubmitForm = async (data: T_AddressFormVm) => {
-      sendAddressToServer(data).then(() => {
+      sendAddressToServer(data).then((res) => {
+         newAddress && newAddress(res.addressId);
          setShowNewAddr(false);
-         newAddress(true);
       });
    };
 
    return (
       <div>
          <div className="mt-3">
-            <span className="h5">Shipping Address</span>
+            <span className="h4">Shipping Address: &emsp;</span>
             <span className="float-end">
                <Button
                   variant="outline-secondary"
@@ -111,7 +112,10 @@ const NewAddressForm: FC<T_Props> = ({ addressForm, newAddress }) => {
                                     addressForm.shippableCountries &&
                                     addressForm.shippableCountries.map(
                                        (country) => (
-                                          <option value={country.value}>
+                                          <option
+                                             value={country.value}
+                                             key={country.text}
+                                          >
                                              {country.text}
                                           </option>
                                        )
@@ -145,7 +149,9 @@ const NewAddressForm: FC<T_Props> = ({ addressForm, newAddress }) => {
                                  </option>
                                  {state &&
                                     state.map((x) => (
-                                       <option value={x.id}>{x.name}</option>
+                                       <option value={x.id} key={x.id}>
+                                          {x.name}
+                                       </option>
                                     ))}
                               </select>
                               {errors.stateOrProvinceId &&

@@ -3,6 +3,7 @@ import { T_AddressFormVm } from "../types/OrderTypes";
 
 export const server = "https://localhost:7000";
 export const serverApi = `${server}/api`;
+const userAddressApi = `${serverApi}/UserAddress`;
 
 const homeServerApi = `${serverApi}/home`;
 const addressApi = `${serverApi}/UserAddress`;
@@ -36,6 +37,22 @@ export const getStateFromCountry = async (countryId: string) => {
 
 export const sendAddressToServer = async (data: T_AddressFormVm) => {
    const response = await axios.post(`${addressApi}/create`, data, {
+      withCredentials: true,
+   });
+   if (response.status === 200) {
+      return response.data;
+   }
+};
+
+export const getAddressesFromServer = async () => {
+   const response = await axios.get(userAddressApi, { withCredentials: true });
+   if (response.status === 200) {
+      return response.data;
+   }
+};
+
+export const getFormForNewAddress = async () => {
+   const response = await axios.get(`${userAddressApi}/create`, {
       withCredentials: true,
    });
    if (response.status === 200) {

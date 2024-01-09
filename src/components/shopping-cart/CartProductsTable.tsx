@@ -22,7 +22,7 @@ const CartProductsTable: FC<T_Props> = ({ items, update }) => {
                      <th></th>
                   </tr>
                </thead>
-               <tbody>
+               <tbody >
                   {items &&
                      items.map((item: T_CartItemVm) => (
                         <CartTableLine

@@ -44,3 +44,20 @@ export type T_UserAddressFormViewModel = {
    displayZipCode: boolean;
    displayCity: boolean;
 };
+
+export type T_UserAddressListItem = {
+   addressId: number;
+   userAddressId: number;
+   contactName: string;
+   phone: string;
+   addressLine1: string;
+   addressLine2: string;
+   districtName: string;
+   stateOrProvinceName: string;
+   countryName: string;
+   isDefaultShippingAddress: boolean;
+   displayDistrict: boolean;
+   displayZipCode: boolean;
+   displayCity: boolean;
+   cityName: string
+};

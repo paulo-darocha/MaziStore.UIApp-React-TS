@@ -39,13 +39,6 @@ const CarouselWidget: FC<T_Props> = ({ instance }) => {
    return (
       <>
          <div>
-            <div
-               className="row"
-               style={{ fontSize: "9px", cursor: "pointer" }}
-               onClick={() => setDev(true)}
-            >
-               [ CasouselWidget - JSON ]
-            </div>
             <div className="container-sm">
                <div>
                   {carouselData && images && (
@@ -73,6 +66,14 @@ const CarouselWidget: FC<T_Props> = ({ instance }) => {
                   )}
                </div>
             </div>
+         </div>
+
+         <div
+            className="row"
+            style={{ fontSize: "9px", cursor: "pointer" }}
+            onClick={() => setDev(true)}
+         >
+            [ CasouselWidget - JSON ]
          </div>
 
          <Modal show={dev} onHide={() => setDev(false)}>
