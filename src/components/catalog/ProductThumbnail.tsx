@@ -79,8 +79,9 @@ const ProductThumbnail: FC<T_Props> = ({ product }) => {
             style={{ fontSize: "9px", cursor: "pointer" }}
             onClick={() => setDev(true)}
          >
-            DEV: ProductThumbnail.tsx [JSON]
+            [DEV: ProductThumbnail - JSON]
          </div>
+
          <Modal show={dev} onHide={() => setDev(false)}>
             <Modal.Body>
                <Modal.Header closeButton>ProductThumbnail.tsx</Modal.Header>

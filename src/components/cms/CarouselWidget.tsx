@@ -48,7 +48,13 @@ const CarouselWidget: FC<T_Props> = ({ instance }) => {
                               <Carousel.Item
                                  key={item.caption}
                                  onClick={() =>
-                                    navigate(`/category${item.targetUrl}`)
+                                    navigate(
+                                       `/category${
+                                          item.targetUrl === "/woman"
+                                             ? "/1"
+                                             : "/2"
+                                       }`
+                                    )
                                  }
                               >
                                  <img

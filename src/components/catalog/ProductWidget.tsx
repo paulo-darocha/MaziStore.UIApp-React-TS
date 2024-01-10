@@ -28,6 +28,7 @@ const ProductWidget: FC<T_Props> = ({ instance }) => {
                         <ProductThumbnail product={product} />
                      </div>
                   ))}
+               <div className="mb-1">&emsp;</div>
             </div>
          </div>
          {/* <div className="small">
