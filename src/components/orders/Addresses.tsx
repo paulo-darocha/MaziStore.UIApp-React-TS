@@ -5,6 +5,7 @@ import {
    T_TaxAndShippingPriceRequestVm,
 } from "../../types/OrderTypes";
 import { getShipAndTaxPrices } from "../../webApis/OrdersWebApi";
+import { useAppSelector } from "../../redux-store/reduxStore";
 
 type T_Props = {
    shippingAddresses: T_ShippingAddressVm[];
@@ -16,12 +17,14 @@ const Addresses: FC<T_Props> = ({ shippingAddresses, setShippingData }) => {
    const [shipProvider, setShipProvider] =
       useState<T_OrderTaxAndShippingPriceVm | null>(null);
 
+   const token = useAppSelector(x => x.token)
+
    useEffect(() => {
       if (addressId !== 0) {
          const data: T_TaxAndShippingPriceRequestVm = {
             existingShippingAddressId: addressId,
          };
-         getShipAndTaxPrices(data).then((res) => setShipProvider(res));
+         getShipAndTaxPrices(data, token).then((res) => setShipProvider(res));
       }
    }, [addressId]);
 

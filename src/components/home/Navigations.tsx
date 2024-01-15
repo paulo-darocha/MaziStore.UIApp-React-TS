@@ -1,133 +1,224 @@
-import { faHomeAlt, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import {
+   faBriefcase,
+   faHomeAlt,
+   faInfoCircle,
+   faPencil,
+   faShoppingCart,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Dropdown, Nav, NavItem } from "react-bootstrap";
+import {
+   Badge,
+   Button,
+   Container,
+   Nav,
+   NavDropdown,
+   Navbar,
+   Offcanvas,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { checkIfLogged } from "../../webApis/AuthWebApi";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux-store/reduxStore";
-import { loginRedux } from "../../redux-store/loggedReducer";
 import { getCartItemsCount } from "../../webApis/ShoppingCartWebApi";
 import { setItemsCount } from "../../redux-store/cartItemsReducer";
-import { setUsername } from "../../redux-store/userNameReducer";
 
 const Navigation = () => {
+   const [show, setShow] = useState(false);
+   const [maxWidth, setMaxWidth] = useState<object>();
    const navigate = useNavigate();
-   const count = useAppSelector((x) => x.items);
-   const loggedInRedux = useAppSelector((x) => x.logged);
+
+   const cartCount = useAppSelector((x) => x.items);
+   const token = useAppSelector((x) => x.token);
    const username = useAppSelector((x) => x.username);
+   const id = useAppSelector((x) => x.id);
    const dispatch = useAppDispatch();
 
    useEffect(() => {
-      checkIfLogged().then((res) => {
-         if (res.logged) {
-            dispatch(loginRedux(res));
-            dispatch(setUsername(res.user.fullName));
-         } else {
-            dispatch(setUsername(""));
-         }
-      });
-      getCartItemsCount().then((res) => dispatch(setItemsCount(res)));
-   }, [dispatch]);
+      getCartItemsCount(id).then((res) => dispatch(setItemsCount(res)));
+   }, [dispatch, id]);
 
-   useEffect(() => {}, [loggedInRedux]);
+   useEffect(() => {
+      setTimeout(() => {
+         show ? setMaxWidth({ maxWidth: "250px" }) : setMaxWidth({});
+      }, 150);
+   }, [show]);
 
    return (
-      <div>
-         <div style={{ backgroundColor: "aliceblue" }}>
-            <Nav>
-               <Nav.Item className="p-3">
-                  <Button onClick={() => navigate("/")}>
-                     <FontAwesomeIcon icon={faHomeAlt} />
-                     <strong className="ps-2">MaziStore</strong>
-                  </Button>
-               </Nav.Item>
+      <Navbar
+         expand="md"
+         className=""
+         style={{ backgroundColor: "aliceblue" }}
+         sticky="top"
+      >
+         <Container fluid>
+            <Navbar.Brand className="" onClick={() => navigate("/")}>
+               <FontAwesomeIcon icon={faHomeAlt} />
+               <strong className="ps-2">MaziStore</strong>
+            </Navbar.Brand>
 
-               <Nav.Item className="py-3">
-                  <Button
-                     variant="outline-primary"
+            <Navbar.Toggle onClick={() => setShow(true)} />
+
+            <Navbar.Offcanvas
+               show={show}
+               style={maxWidth}
+               onHide={() => setShow(false)}
+            >
+               <Offcanvas.Header closeButton onClick={() => setShow(false)}>
+                  <Offcanvas.Title>Mazi Store</Offcanvas.Title>
+               </Offcanvas.Header>
+
+               <Offcanvas.Body className="text-end">
+                  <Nav.Link
                      onClick={() => navigate("/about")}
+                     className="m-2 d-grid"
                   >
-                     About
-                  </Button>
-               </Nav.Item>
+                     <Button
+                        variant="outline-primary"
+                        onClick={() => setShow(false)}
+                     >
+                        <FontAwesomeIcon
+                           icon={faInfoCircle}
+                           size="lg"
+                           className="me-1"
+                        />
+                        About
+                     </Button>
+                  </Nav.Link>
 
-               <Nav.Item className="p-3">
-                  <Button
-                     variant="outline-primary"
+                  <Nav.Link
                      onClick={() => navigate("/comment")}
+                     className="m-2 d-grid"
                   >
-                     Leave a comment
-                  </Button>
-               </Nav.Item>
+                     <Button
+                        variant="outline-primary"
+                        onClick={() => setShow(false)}
+                     >
+                        <FontAwesomeIcon icon={faPencil} className="me-1" />
+                        Leave a Comment
+                     </Button>
+                  </Nav.Link>
 
-               <Nav.Item className="p-3" style={{ marginLeft: "auto" }}>
-                  <Button
-                     variant="outline-primary"
-                     className="position-relative"
+                  <Nav.Link
+                     onClick={() => navigate("/admin")}
+                     className="m-2  d-grid"
+                  >
+                     <Button
+                        variant="outline-primary"
+                        onClick={() => setShow(false)}
+                     >
+                        <FontAwesomeIcon icon={faBriefcase} className="me-1" />
+                        Administration
+                     </Button>
+                  </Nav.Link>
+
+                  <Nav.Link
                      onClick={() => navigate("/cart")}
+                     className="my-2 me-2 d-grid"
+                     style={
+                        !show ? { marginLeft: "auto" } : { marginLeft: "8px" }
+                     }
                   >
-                     <FontAwesomeIcon icon={faShoppingCart} />
-                     {count > 0 && (
-                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                           {count}
-                        </span>
-                     )}
-                  </Button>
-               </Nav.Item>
+                     <span
+                        className="btn btn-outline-primary"
+                        onClick={() => setShow(false)}
+                     >
+                        <FontAwesomeIcon
+                           icon={faShoppingCart}
+                           size="lg"
+                           className="me-1"
+                        />
+                        <small>
+                           <Badge pill bg="info">
+                              {cartCount ?? 0}
+                           </Badge>
+                        </small>
+                     </span>
+                  </Nav.Link>
 
-               {!loggedInRedux ? (
-                  <>
-                     <Nav.Item className="py-3">
-                        <Button
-                           variant="outline-primary"
+                  {token === "x" ? (
+                     <>
+                        <Nav.Link
                            onClick={() => navigate("/login")}
+                           className="m-2 d-grid"
                         >
-                           Login
-                        </Button>
-                     </Nav.Item>
-                     <Nav.Item className="p-3">
-                        <Button
-                           variant="outline-primary"
-                           onClick={() => navigate("/register")}
-                        >
-                           Register
-                        </Button>
-                     </Nav.Item>
-                  </>
-               ) : (
-                  <Dropdown as={NavItem} className="ps-0 p-3">
-                     <Dropdown.Toggle variant="outline-primary">
-                        <span className="h6 px-3">{username}</span>
-                     </Dropdown.Toggle>
+                           <Button
+                              variant="outline-primary"
+                              onClick={() => setShow(false)}
+                           >
+                              Login
+                           </Button>
+                        </Nav.Link>
 
-                     <Dropdown.Menu>
-                        <Dropdown.Item
+                        <Nav.Link
+                           onClick={() => navigate("/register")}
+                           className="m-2 d-grid"
+                        >
+                           <Button
+                              variant="outline-primary"
+                              onClick={() => setShow(false)}
+                           >
+                              Register
+                           </Button>
+                        </Nav.Link>
+                     </>
+                  ) : (
+                     <NavDropdown
+                        title={`${id}.${username}`}
+                        className="btn btn-outline-primary m-2 d-grid"
+                     >
+                        <NavDropdown.Item
                            onClick={() => navigate("/logout")}
-                           className="text-center"
+                           className="text-center d-grid"
                         >
-                           Logout
-                           <hr className="my-1" />
-                        </Dropdown.Item>
-                        <Dropdown.Item
+                           <Button
+                              onClick={() => setShow(false)}
+                              variant="outline-dark"
+                           >
+                              Logout
+                           </Button>
+                        </NavDropdown.Item>
+
+                        <NavDropdown.Item
                            onClick={() => navigate("/profile")}
-                           className="text-center"
+                           className="d-grid"
                         >
-                           MyProfile
-                           <hr className="my-1" />
-                        </Dropdown.Item>
-                        <Dropdown.Item
+                           <Button
+                              onClick={() => setShow(false)}
+                              variant="outline-dark"
+                           >
+                              My Profile
+                           </Button>
+                        </NavDropdown.Item>
+
+                        <NavDropdown.Item
                            onClick={() => navigate("profile/orders")}
-                           className="text-center"
+                           className="d-grid"
                         >
-                           MyOrders
-                           <hr className="my-1" />
-                        </Dropdown.Item>
-                     </Dropdown.Menu>
-                  </Dropdown>
-               )}
-            </Nav>
-         </div>
-      </div>
+                           <Button
+                              variant="outline-dark"
+                              onClick={() => setShow(false)}
+                           >
+                              My Orders
+                           </Button>
+                        </NavDropdown.Item>
+
+                        <NavDropdown.Item
+                           onClick={() => navigate("profile/address")}
+                           className="d-grid"
+                        >
+                           <Button
+                              variant="outline-dark"
+                              onClick={() => setShow(false)}
+                           >
+                              My Addresses
+                           </Button>
+                        </NavDropdown.Item>
+                        <hr className="m-1" />
+                     </NavDropdown>
+                  )}
+               </Offcanvas.Body>
+            </Navbar.Offcanvas>
+         </Container>
+      </Navbar>
    );
 };
 

@@ -64,8 +64,8 @@ export const removeItemFromCart = async (
    }
 };
 
-export const getCartItemsCount = async () => {
-   const response = await axios.get(`${cartApi}/count`, {
+export const getCartItemsCount = async (id: number = 0) => {
+   const response = await axios.get(`${cartApi}/count/${id}`, {
       withCredentials: true,
    });
    if (response.status === 200) {

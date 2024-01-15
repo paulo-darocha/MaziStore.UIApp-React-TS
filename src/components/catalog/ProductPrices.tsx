@@ -14,7 +14,7 @@ import {
    T_AddToCartModel,
    T_AddToCartResultVm,
 } from "../../types/ShoppingCartTypes";
-import { useAppDispatch } from "../../redux-store/reduxStore";
+import { useAppDispatch, useAppSelector } from "../../redux-store/reduxStore";
 import { setItemsCount } from "../../redux-store/cartItemsReducer";
 
 type T_Props = {
@@ -31,6 +31,7 @@ const ProductPrices: FC<T_Props> = ({ product, pending }) => {
 
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
+   const id = useAppSelector(x => x.id)
 
    const onAlterQuantity = (action: "add" | "subtract") => {
       if (action == "add") {
@@ -56,16 +57,16 @@ const ProductPrices: FC<T_Props> = ({ product, pending }) => {
       if (pending) {
          setMessage("Please choose all options");
       } else {
-         sendCartToServer(data).then((res) => {
+         sendCartToServer(data, id).then((res) => {
             setModalData(res);
-            getCartItemsCount().then((res) => dispatch(setItemsCount(res)));
+            getCartItemsCount(id).then((res) => dispatch(setItemsCount(res)));
          });
 
          setShow(true);
       }
    };
 
-   
+
 
    const onCloseModal = () => {
       () => setShow(false);
@@ -145,8 +146,8 @@ const ProductPrices: FC<T_Props> = ({ product, pending }) => {
          </div>
          <div>
             {!product.isAllowToOrder ||
-            (product.stockTrackingIsEnabled &&
-               product.stockQuantity <= 0) ? null : (
+               (product.stockTrackingIsEnabled &&
+                  product.stockQuantity <= 0) ? null : (
                <div
                   className="my-2"
                   onClick={onClickAddToCart}

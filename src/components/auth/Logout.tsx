@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { logoutFromServer } from "../../webApis/AuthWebApi";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../redux-store/reduxStore";
-import { loginRedux } from "../../redux-store/loggedReducer";
+import { setToken } from "../../redux-store/tokenReducer";
+import { setUsername } from "../../redux-store/userNameReducer";
 
 const Logout = () => {
    const navigate = useNavigate();
@@ -10,7 +11,8 @@ const Logout = () => {
 
    useEffect(() => {
       logoutFromServer().then(() => {
-         dispatch(loginRedux(false));
+         dispatch(setUsername("(visitor)"))
+         dispatch(setToken('x'));
          navigate("/");
       });
    }, []);

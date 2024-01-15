@@ -32,9 +32,9 @@ const CategoriesMenu = () => {
          </div>
          <div className="row">
             <Nav>
-               <Nav.Item>
+               {/* <Nav.Item>
                   <Nav.Link>All</Nav.Link>
-               </Nav.Item>
+               </Nav.Item> */}
                {categories &&
                   categories.map((category: T_CategoryMenuItem) => (
                      <React.Fragment key={category.id}>

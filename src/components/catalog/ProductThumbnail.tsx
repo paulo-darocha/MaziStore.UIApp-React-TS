@@ -18,7 +18,7 @@ const ProductThumbnail: FC<T_Props> = ({ product }) => {
 
    return (
       <>
-         <div className="d-flex h-100">
+         <div className="d-flex h-100 my-1">
             <Card
                onClick={() => navigate(`/product/${product.id}`)}
                style={{ cursor: "pointer" }}
@@ -33,10 +33,13 @@ const ProductThumbnail: FC<T_Props> = ({ product }) => {
                         <div className="col-auto">
                            {product.calculatedProductPrice.priceString}
                         </div>
-                        <div className="col-auto">
+                        <div className="col-5 text-danger text-decoration-line-through small">
+                           {product.calculatedProductPrice.oldPriceString}
+                        </div>
+                        <div className="mt-2 mx-1 text-center row">
                            {product.calculatedProductPrice.percentOfSaving >
                               0 && (
-                              <strong className="border border-success border-2 py-1 px-2 text-success">
+                              <strong className="border border-success border-2 p-1 text-success">
                                  save{" "}
                                  {
                                     product.calculatedProductPrice
@@ -46,10 +49,6 @@ const ProductThumbnail: FC<T_Props> = ({ product }) => {
                               </strong>
                            )}
                         </div>
-                     </div>
-
-                     <div className="row text-danger ms-1 text-decoration-line-through small">
-                        {product.calculatedProductPrice.oldPriceString}
                      </div>
 
                      <div className="row mt-2">

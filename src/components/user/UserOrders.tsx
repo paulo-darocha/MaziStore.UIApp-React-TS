@@ -4,16 +4,19 @@ import { T_OrderHistoryListItem } from "../../types/AuthTypes";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { getImage } from "../../webApis/CoreWebApi";
+import { useAppSelector } from "../../redux-store/reduxStore";
 
 const UserOrders = () => {
    const [dev, setDev] = useState(false);
    const [orders, setOrders] = useState<T_OrderHistoryListItem[]>([]);
    const [images, setImages] = useState<Blob[]>([]);
+
    const navigate = useNavigate();
+   const token = useAppSelector(x => x.token)
    let i = 0;
 
    useEffect(() => {
-      getOrdersList().then((res) => setOrders(res));
+      getOrdersList(token).then((res) => setOrders(res));
    }, []);
 
    useEffect(() => {

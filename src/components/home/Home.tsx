@@ -8,11 +8,12 @@ import {
 import ProductWidget from "../catalog/ProductWidget";
 import { Alert, Modal } from "react-bootstrap";
 import CategoriesMenu from "../categories/CategoriesMenu";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
 type T_Props = { notFound?: boolean };
 
 const Home: FC<T_Props> = ({ notFound = false }) => {
-   const [show, setShow] = useState(true);
    const [widgets, setWidgets] = useState<T_HomeViewModel | null>(null);
    const [dev, setDev] = useState(false);
 
@@ -23,10 +24,13 @@ const Home: FC<T_Props> = ({ notFound = false }) => {
    return (
       <>
          {notFound && (
-            <Alert variant="danger" dismissible className="m-3 pt-2 pb-1">
-               <Alert.Heading>
-                  The page you are looking for was not found
-               </Alert.Heading>
+            <Alert variant="danger" dismissible className="text-center">
+               <FontAwesomeIcon
+                  icon={faExclamationTriangle}
+                  size="lg"
+                  className="float-start m-1"
+               />
+               The page you are looking for was not found
             </Alert>
          )}
 

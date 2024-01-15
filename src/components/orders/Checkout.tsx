@@ -12,6 +12,7 @@ import {
 import { Button, Modal } from "react-bootstrap";
 import Addresses from "./Addresses";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../redux-store/reduxStore";
 
 const Checkout = () => {
    const [message, setMessage] = useState("");
@@ -22,10 +23,12 @@ const Checkout = () => {
    const [addressId, setAddressId] = useState(0);
    const [shippingData, setShippingData] =
       useState<T_OrderTaxAndShippingPriceVm | null>(null);
+
    const navigate = useNavigate();
+   const token = useAppSelector((x) => x.token);
 
    useEffect(() => {
-      getShippingInformation().then((res) => setShipInfo(res));
+      getShippingInformation(token).then((res) => setShipInfo(res));
    }, [addressId]);
 
    const onClickCompleteCheckout = () => {
@@ -33,7 +36,7 @@ const Checkout = () => {
          const data: T_DeliveryInformationVm = shipInfo;
          data.shippingAddressId = shippingData!.shippingAddressId;
          data.shippingMethod = shippingData.selectedShippingMethodName;
-         CompleteCheckout(data).then(() => navigate("/payment"));
+         CompleteCheckout(data, token).then(() => navigate("/payment"));
       }
    };
 
@@ -60,38 +63,35 @@ const Checkout = () => {
                      setShippingData={setShippingData}
                   />
                )}
-
-               {shippingData === null && (
-                  <span className="text-danger h6">{message}</span>
-               )}
-               <div className="row mt-2  mb-5">
-                  <div className="col-4 d-grid">
-                     <Button
-                        variant="outline-dark"
-                        onClick={() => navigate("/cart")}
-                     >
-                        <span style={{ fontSize: ".9em" }}>Cancel Order</span>
-                     </Button>
-                  </div>
-                  <div
-                     className="col-8 d-grid"
-                     onClick={() =>
-                        setMessage("Please choose a shipping method")
-                     }
-                  >
-                     <Button
-                        variant="primary"
-                        disabled={shippingData === null}
-                        onClick={onClickCompleteCheckout}
-                     >
-                        <span className="h6">Proceed to Payment</span>
-                     </Button>
-                  </div>
-               </div>
             </div>
 
-            <div className="col-md-6 border">
+            <div className="col-md-6">
                {shippingData && <OrderSummary shippingData={shippingData} />}
+            </div>
+
+            {shippingData === null && (
+               <span className="text-danger h6">{message}</span>
+            )}
+         </div>
+
+         <div className="row mt-2 mb-5">
+            <div className="offset-md-6 col-md-2 col-5 d-grid">
+               <Button variant="outline-dark" onClick={() => navigate("/cart")}>
+                  <span style={{ fontSize: ".9em" }}>Cancel Order</span>
+               </Button>
+            </div>
+
+            <div
+               className="col-md-4 col-7 d-grid"
+               onClick={() => setMessage("Please choose a shipping method")}
+            >
+               <Button
+                  variant="primary"
+                  disabled={shippingData === null}
+                  onClick={onClickCompleteCheckout}
+               >
+                  <span className="h6">Proceed to Payment</span>
+               </Button>
             </div>
          </div>
 

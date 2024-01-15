@@ -1,14 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import loggedReducer from "./loggedReducer";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import cartItemsReducer from "./cartItemsReducer";
 import userNameReducer from "./userNameReducer";
+import tokenReducer from "./tokenReducer";
+import idReducer from "./idReducer";
+import modifiedReducer from "./modifiedReducer";
+import userParamReducer from "./userParamReducer";
 
 export const reduxStore = configureStore({
    reducer: {
-      logged: loggedReducer,
+      token: tokenReducer,
       items: cartItemsReducer,
       username: userNameReducer,
+      id: idReducer,
+      modified: modifiedReducer,
+      params: userParamReducer,
    },
 });
 

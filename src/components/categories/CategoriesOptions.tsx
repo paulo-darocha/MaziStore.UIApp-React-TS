@@ -3,7 +3,7 @@ import { T_ProductsByCategory } from "../../types/CategoriesTypes";
 
 type T_Props = { category: T_ProductsByCategory };
 
-const CategoriesOptions: FC<T_Props> = ({ category }) => {
+const CategoriesOptions: FC<T_Props> = () => {
    const [min, setMin] = useState(0);
    const [max, setMax] = useState(500);
 
@@ -20,8 +20,10 @@ const CategoriesOptions: FC<T_Props> = ({ category }) => {
    useEffect(() => {}, []);
 
    return (
-      <div className="ps-3">
-         <h5 className="mt-5">Choose price range</h5>
+      <div>
+         <div className="mt-2" style={{ fontSize: "1.em" }}>
+            Choose price range:
+         </div>
          <div className="mt-2">
             <div>
                <label htmlFor="temp">Min: {min}</label>

@@ -19,7 +19,7 @@ const ProductVariationAttrs: FC<T_Props> = ({
    variations,
 }) => {
    const [pending, setPending] = useState(false);
-   const [check, setCheck] = useState(0);
+   const [check, setCheck] = useState(false);
    const [color, setColor] = useState("");
    const [options, setOptions] = useState<T_Dictionary>({});
    const [variation, setVariation] = useState<T_ProductDetailVariation>(
@@ -35,7 +35,7 @@ const ProductVariationAttrs: FC<T_Props> = ({
       const state = options;
       state[name] = value;
       setOptions(state);
-      setCheck(Math.random());
+      setCheck(!check);
    };
 
    const getColor = (cor: string) => {
@@ -57,6 +57,7 @@ const ProductVariationAttrs: FC<T_Props> = ({
          const array1 = x.normalizedName.split("-").sort().join(",");
          const array2 = Object.values(options).sort().join(",");
          if (array1.length > array2.length) setPending(true);
+         else if (array1.length == array2.length) setPending(false);
          return array1 === array2;
       });
       if (chosenVar) {

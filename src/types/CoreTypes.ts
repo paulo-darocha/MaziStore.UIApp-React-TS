@@ -61,3 +61,13 @@ export type T_UserAddressListItem = {
    displayCity: boolean;
    cityName: string
 };
+
+export type T_UserResult = {
+   id: number
+   succeeded: boolean
+   message: string
+   token: string
+   fullName: string
+   email: string
+   imageUrl?: string
+}

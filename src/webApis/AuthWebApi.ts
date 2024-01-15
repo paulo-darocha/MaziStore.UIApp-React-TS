@@ -1,7 +1,9 @@
+/* eslint-disable */
+
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { T_LoginViewModel, T_RegisterViewModel } from "../types/AuthTypes";
 import { serverApi } from "./CoreWebApi";
-import { OneResponse } from "../types/CoreTypes";
+import { OneResponse, T_UserResult } from "../types/CoreTypes";
 
 const authApi = `${serverApi}/account`;
 
@@ -19,11 +21,12 @@ export const registerNewUser = async (
          return result;
       })
       .catch((err: AxiosError) => {
+         const msg: string = ((err.response?.data as any).erro[0])
          const result: OneResponse<string> = {
             error: true,
-            msg: err.response?.data.erro[0],
+            msg: msg,
          };
-         console.log(result);
+         console.log(err.response?.data);
          return result;
       });
 
@@ -32,19 +35,22 @@ export const registerNewUser = async (
 
 export const login = async (
    data: T_LoginViewModel
-): Promise<OneResponse<string>> => {
+): Promise<T_UserResult> => {
    const response = await axios
       .post(`${authApi}/login`, data, {
          withCredentials: true,
       })
       .then((res: AxiosResponse) => {
-         const result: OneResponse<string> = { error: false, msg: res.data };
-         return result;
+         return res.data;
       })
       .catch((err: AxiosError) => {
-         const result: OneResponse<string> = {
-            error: true,
-            msg: err.response?.data as string,
+         const result: T_UserResult = {
+            id: 0,
+            fullName: '',
+            email: '',
+            succeeded: false,
+            message: err.response?.data as string,
+            token: 'x'
          };
          console.log(result);
          return result;

@@ -8,18 +8,21 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoneyBillAlt } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../redux-store/reduxStore";
 
 const Payment = () => {
    const [dev, setDev] = useState(false);
    const [data, setData] = useState<T_PaymentProviderVm[]>([]);
+
    const navigate = useNavigate();
+   const token = useAppSelector(x => x.token)
 
    useEffect(() => {
-      getPaymentProviders().then((res) => setData(res.paymentProviders));
+      getPaymentProviders(token).then((res) => setData(res.paymentProviders));
    }, []);
 
    const onClickPayment = () => {
-      sendPaymentCoD().then((res) => navigate(`/thanks/${res}`));
+      sendPaymentCoD(token).then((res) => navigate(`/thanks/${res}`));
    };
 
    return (

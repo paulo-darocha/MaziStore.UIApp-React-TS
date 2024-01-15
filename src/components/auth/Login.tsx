@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { T_LoginViewModel } from "../../types/AuthTypes";
 import { Button } from "react-bootstrap";
-import { checkIfLogged, login } from "../../webApis/AuthWebApi";
-import { OneResponse } from "../../types/CoreTypes";
 import { useAppDispatch } from "../../redux-store/reduxStore";
-import { loginRedux } from "../../redux-store/loggedReducer";
 import { setUsername } from "../../redux-store/userNameReducer";
+import { login } from "../../webApis/AuthWebApi";
+import { setToken } from "../../redux-store/tokenReducer";
+import { setId } from "../../redux-store/idReducer";
 
 type T_Props = { url?: string };
 
@@ -30,15 +30,14 @@ const Login: FC<T_Props> = ({ url }) => {
    });
 
    const onClickSubmit = (data: T_LoginViewModel) => {
-      login(data).then((res: OneResponse<string>) => {
-         if (res.error) {
-            setMessage(res.msg);
+      login(data).then((res) => {
+         if (res.succeeded) {
+            dispatch(setToken(res.token));
+            dispatch(setUsername(res.email));
+            dispatch(setId(res.id));
+            navigate(`${url ?? "/home"}`);
          } else {
-            dispatch(loginRedux(true));
-            checkIfLogged().then((res) => {
-               dispatch(setUsername(res.user.fullName));
-               navigate(`${url ?? "/home"}`);
-            });
+            setMessage("Invalid login or password.");
          }
       });
    };
@@ -48,7 +47,7 @@ const Login: FC<T_Props> = ({ url }) => {
          <h4>Login</h4>
          <div style={{ fontSize: "10px" }}>[returUrl: {`${url ?? "/"}`}]</div>
          <div className="row">
-            <div className="col-7 text-end pe-3">
+            <div className="col-md-7 text-md-end pe-3">
                <form onSubmit={handleSubmit(onClickSubmit)}>
                   <div className="row form-group my-3">
                      <label className="col-md-3 col-form-label h5">Email</label>
@@ -118,7 +117,7 @@ const Login: FC<T_Props> = ({ url }) => {
                   </div>
                </form>
             </div>
-            <div className="col-5 p-3">
+            <div className="col-md-5 p-3">
                <section>
                   <h4>Use another service to log in.</h4>
                   <div>

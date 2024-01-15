@@ -4,16 +4,19 @@ import { useParams } from "react-router-dom";
 import { T_OrderDetailVm } from "../../types/OrderTypes";
 import { Modal } from "react-bootstrap";
 import { getImage } from "../../webApis/CoreWebApi";
+import { useAppSelector } from "../../redux-store/reduxStore";
 
 const OrderDetails = () => {
    const [dev, setDev] = useState(false);
-   const params = useParams();
    const [order, setOrder] = useState<T_OrderDetailVm | undefined>();
    const [images, setImages] = useState<Blob[]>([]);
 
+   const params = useParams();
+   const token = useAppSelector(x => x.token)
+
    useEffect(() => {
       const numberId = Number(params.id);
-      if (numberId > 0) getOrderDetails(numberId).then((res) => setOrder(res));
+      if (numberId > 0) getOrderDetails(numberId, token).then((res) => setOrder(res));
    }, [params]);
 
    useEffect(() => {

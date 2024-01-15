@@ -62,8 +62,8 @@ const CarouselWidget: FC<T_Props> = ({ instance }) => {
                                     className="w-100"
                                  />
                                  <Carousel.Caption>
-                                    <h3>{item.caption}</h3>
-                                    <h5>{item.subCaption}</h5>
+                                    <div className="h3">{item.caption}</div>
+                                    <div className="h6">{item.subCaption}</div>
                                  </Carousel.Caption>
                               </Carousel.Item>
                            )

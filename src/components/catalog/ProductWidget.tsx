@@ -24,7 +24,7 @@ const ProductWidget: FC<T_Props> = ({ instance }) => {
             <div className="row">
                {productSetting &&
                   productSetting.products.map((product: T_ProductThumbnail) => (
-                     <div className="col-3" key={product.id}>
+                     <div className="col-md-3 col-sm-6" key={product.id}>
                         <ProductThumbnail product={product} />
                      </div>
                   ))}

@@ -8,9 +8,10 @@ import {
 const checkoutApi = `${serverApi}/checkout`;
 const ordersApi = `${serverApi}/order`;
 
-export const getShippingInformation = async () => {
+export const getShippingInformation = async (token: string) => {
    const response = await axios.get(`${checkoutApi}/shipping`, {
       withCredentials: true,
+      headers: { Authorization: `Bearer ${token}` }
    });
    if (response.status === 200) {
       return response.data;
@@ -18,37 +19,42 @@ export const getShippingInformation = async () => {
 };
 
 export const getShipAndTaxPrices = async (
-   data: T_TaxAndShippingPriceRequestVm
+   data: T_TaxAndShippingPriceRequestVm, token: string
 ) => {
    const response = await axios.post(`${checkoutApi}/update`, data, {
-      withCredentials: true,
+      withCredentials: true, headers: { Authorization: `Bearer ${token}` }
    });
    if (response.status === 200) {
       return response.data;
    }
 };
 
-export const CompleteCheckout = async (data: T_DeliveryInformationVm) => {
+export const CompleteCheckout = async (data: T_DeliveryInformationVm, token: string) => {
    const response = await axios.post(`${checkoutApi}/shipping`, data, {
-      withCredentials: true,
+      withCredentials: true, headers: {
+         Authorization: `Bearer ${token}`
+      }
    });
    if (response.data === 200) {
       return response.data;
    }
 };
 
-export const getOrdersList = async () => {
+export const getOrdersList = async (token: string) => {
    const response = await axios.get(`${ordersApi}/list`, {
-      withCredentials: true,
+      withCredentials: true, headers: {
+         Authorization: `Bearer ${token}`
+      }
    });
    if (response.status === 200) {
       return response.data;
    }
 };
 
-export const getOrderDetails = async (orderId: number) => {
+export const getOrderDetails = async (orderId: number, token: string) => {
    const response = await axios.get(`${ordersApi}/${orderId}`, {
       withCredentials: true,
+      headers: { Authorization: `Bearer ${token}` }
    });
    if (response.status === 200) {
       return response.data;

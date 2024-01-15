@@ -6,6 +6,7 @@ import {
    getStateFromCountry,
    sendAddressToServer,
 } from "../../webApis/CoreWebApi";
+import { useAppSelector } from "../../redux-store/reduxStore";
 
 
 type T_Props = {
@@ -17,6 +18,7 @@ type T_SelectState = { id: string; name: string };
 const NewAddressForm: FC<T_Props> = ({ addressForm, newAddress }) => {
    const [showNewAddr, setShowNewAddr] = useState(false);
    const [state, setState] = useState<T_SelectState[]>();
+   const token = useAppSelector(x => x.token)
 
    const {
       register,
@@ -28,13 +30,13 @@ const NewAddressForm: FC<T_Props> = ({ addressForm, newAddress }) => {
    });
 
    const onChangeChooseCountry = (e: ChangeEvent<HTMLSelectElement>) => {
-      getStateFromCountry(e.target.value).then((res) => {
+      getStateFromCountry(e.target.value, token).then((res) => {
          setState(res.statesOrProvinces);
       });
    };
 
    const onClickSubmitForm = async (data: T_AddressFormVm) => {
-      sendAddressToServer(data).then((res) => {
+      sendAddressToServer(data, token).then((res) => {
          newAddress && newAddress(res.addressId);
          setShowNewAddr(false);
       });

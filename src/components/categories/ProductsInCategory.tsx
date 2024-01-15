@@ -9,6 +9,7 @@ import { Modal } from "react-bootstrap";
 import ProductThumbnail from "../catalog/ProductThumbnail";
 import { T_ProductThumbnail } from "../../types/CatalogTypes";
 import CategoriesOptions from "./CategoriesOptions";
+import CategoriesMenu from "./CategoriesMenu";
 
 const ProductsInCategory = () => {
    const [dev, setDev] = useState(false);
@@ -25,7 +26,8 @@ const ProductsInCategory = () => {
    }, [param]);
 
    return (
-      <div>
+      <div className="container-xxl">
+         <CategoriesMenu />
          <div
             className="row"
             style={{ fontSize: "9px", cursor: "pointer" }}
@@ -34,23 +36,28 @@ const ProductsInCategory = () => {
             [ ProductsInCategory - JSON ]
          </div>
 
+         <div>
+            <span className="h4">
+               Products in '{category?.categoryName}' category:
+            </span>
+         </div>
+
          <div className="row">
-            <div className="col-3">
+            <div className="col-sm-3 mt-2">
+               <span className="badge bg-success">
+                  <span className="h6">{category?.totalProduct} results</span>
+               </span>
                {category && <CategoriesOptions category={category} />}
             </div>
-            <div className="col-9">
+
+            <div className="col-sm-9">
                <div>
-                  <span className="h2">{category?.categoryName}</span>
-                  <span className="badge bg-success ms-5">
-                     <span className="h6">
-                        {category?.totalProduct} results
-                     </span>
-                  </span>
-               </div>
-               <div>
-                  <div className="row">
+                  <div className="row text-center">
                      {category?.products.map((product: T_ProductThumbnail) => (
-                        <div className="col-4 my-3" key={product.id}>
+                        <div
+                           className="col-lg-3 col-md-4 col-6 my-3"
+                           key={product.id}
+                        >
                            <ProductThumbnail product={product} />
                         </div>
                      ))}

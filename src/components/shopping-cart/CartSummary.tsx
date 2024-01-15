@@ -10,7 +10,7 @@ const CartSummary: FC<T_Props> = ({ summary }) => {
    const navigate = useNavigate();
 
    return (
-      <div className="mt-5 ms-5">
+      <div className="mt-5 ms-lg-5">
          <div
             style={{ fontSize: "9px", cursor: "pointer" }}
             onClick={() => setDev(true)}

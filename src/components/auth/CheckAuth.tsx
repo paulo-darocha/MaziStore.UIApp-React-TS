@@ -6,12 +6,12 @@ import Login from "./Login";
 type T_Props = { children: React.ReactNode; returnUrl: string };
 
 const CheckAuth: FC<T_Props> = ({ children, returnUrl }) => {
-   const logged = useAppSelector((x) => x.logged);
+   const logged = useAppSelector((x) => x.token) === 'x';
    const params = useParams();
 
    return (
       <>
-         {logged ? (
+         {!logged ? (
             <>{children}</>
          ) : (
             <Login url={`${returnUrl}/${params.url ?? ""}`} />
