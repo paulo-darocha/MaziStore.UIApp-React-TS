@@ -43,3 +43,10 @@ export type T_OrderStatus =
    | "Canceled"
    | "Refunded"
    | "Closed";
+
+export type T_PublicCommentVm = {
+   comment: string;
+   title: string;
+   name: string;
+   email: string;
+};

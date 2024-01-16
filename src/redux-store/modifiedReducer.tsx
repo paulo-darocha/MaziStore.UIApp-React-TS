@@ -5,7 +5,7 @@ const modifiedSlice = createSlice({
    initialState: false,
    reducers: {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      setModified: (state: boolean, { type: string }) => {
+      setModified: (state: boolean) => {
          console.log("M O D I F I E D");
          return (state = !state);
       },

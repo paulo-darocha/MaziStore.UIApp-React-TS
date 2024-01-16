@@ -1,11 +1,16 @@
 /* eslint-disable */
 
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { T_LoginViewModel, T_RegisterViewModel } from "../types/AuthTypes";
+import {
+   T_LoginViewModel,
+   T_PublicCommentVm,
+   T_RegisterViewModel,
+} from "../types/AuthTypes";
 import { serverApi } from "./CoreWebApi";
 import { OneResponse, T_UserResult } from "../types/CoreTypes";
 
 const authApi = `${serverApi}/account`;
+const publicCommentApi = `${serverApi}/PublicComment`;
 
 export const registerNewUser = async (
    data: T_RegisterViewModel
@@ -21,7 +26,7 @@ export const registerNewUser = async (
          return result;
       })
       .catch((err: AxiosError) => {
-         const msg: string = ((err.response?.data as any).erro[0])
+         const msg: string = (err.response?.data as any).erro[0];
          const result: OneResponse<string> = {
             error: true,
             msg: msg,
@@ -33,9 +38,7 @@ export const registerNewUser = async (
    return response;
 };
 
-export const login = async (
-   data: T_LoginViewModel
-): Promise<T_UserResult> => {
+export const login = async (data: T_LoginViewModel): Promise<T_UserResult> => {
    const response = await axios
       .post(`${authApi}/login`, data, {
          withCredentials: true,
@@ -46,11 +49,11 @@ export const login = async (
       .catch((err: AxiosError) => {
          const result: T_UserResult = {
             id: 0,
-            fullName: '',
-            email: '',
+            fullName: "",
+            email: "",
             succeeded: false,
             message: err.response?.data as string,
-            token: 'x'
+            token: "x",
          };
          console.log(result);
          return result;
@@ -69,4 +72,16 @@ export const logoutFromServer = async () => {
       withCredentials: true,
    });
    return response.data;
+};
+
+export const sendCommentToServer = async (data: T_PublicCommentVm) => {
+   const response = await axios.post(publicCommentApi, data);
+   return response.data;
+};
+
+export const getPublicCommentList = async () => {
+   const response = await axios.get(publicCommentApi);
+   if (response.status == 200) {
+      return response.data;
+   }
 };

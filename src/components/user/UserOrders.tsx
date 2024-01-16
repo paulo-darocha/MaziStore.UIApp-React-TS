@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { getOrdersList } from "../../webApis/OrdersWebApi";
 import { T_OrderHistoryListItem } from "../../types/AuthTypes";
-import { Button, Modal } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Modal } from "react-bootstrap";
+
 import { getImage } from "../../webApis/CoreWebApi";
 import { useAppSelector } from "../../redux-store/reduxStore";
+import OrdersTable from "./OrdersTable";
+import OrdersTableSm from "./OrdersTableSm";
 
 const UserOrders = () => {
    const [dev, setDev] = useState(false);
    const [orders, setOrders] = useState<T_OrderHistoryListItem[]>([]);
    const [images, setImages] = useState<Blob[]>([]);
 
-   const navigate = useNavigate();
-   const token = useAppSelector(x => x.token)
-   let i = 0;
+   const token = useAppSelector((x) => x.token);
 
    useEffect(() => {
       getOrdersList(token).then((res) => setOrders(res));
@@ -40,66 +40,21 @@ const UserOrders = () => {
             style={{ fontSize: "10px", cursor: "pointer" }}
             onClick={() => setDev(true)}
          >
-            DEV: UserOrders [JSON]
+            DEV: User Orders [JSON]
          </div>
-         <div className="text-center h4 my-3">UserOrders</div>
+         <div className="text-center h5">User Orders</div>
 
-         <div>
-            <table className="table">
-               <thead>
-                  <tr>
-                     <th>Order Id</th>
-                     <th>Date</th>
-                     <th>Products</th>
-                     <th>SubTotal</th>
-                     <th>Status</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  {orders &&
-                     orders.map((order) => (
-                        <tr key={order.id}>
-                           <td>
-                              <Button
-                                 variant="outline-primary"
-                                 onClick={() =>
-                                    navigate(`/profile/order/${order.id}`)
-                                 }
-                              >
-                                 <small>ORDER #{order.id}</small>
-                              </Button>
-                           </td>
-                           <td>{new Date(order.createdOn).toLocaleString()}</td>
-                           <td>
-                              {order.orderItems.map((item) => (
-                                 <div className="row" key={item.thumbnailImage}>
-                                    <div className="col-3 p-1">
-                                       {images && images.length > 0 && (
-                                          <img
-                                             src={URL.createObjectURL(
-                                                images[i++]
-                                             )}
-                                             style={{ maxWidth: "13vh" }}
-                                          />
-                                       )}
-                                    </div>
-                                    <div className="col-9">
-                                       <div>{item.productName}</div>
-                                       <div>
-                                          <small>Quantity:</small>{" "}
-                                          {item.quantity}
-                                       </div>
-                                    </div>
-                                 </div>
-                              ))}
-                           </td>
-                           <td>{order.subTotalString}</td>
-                           <td>{order.orderStatus}</td>
-                        </tr>
-                     ))}
-               </tbody>
-            </table>
-         </div>
+         {orders && images && (
+            <div className="d-none d-md-block">
+               <OrdersTable orders={orders} images={images} />
+            </div>
+         )}
+
+         {orders && images && (
+            <div className="d-block d-md-none">
+               <OrdersTableSm orders={orders} images={images} />
+            </div>
+         )}
 
          <Modal show={dev} onHide={() => setDev(false)}>
             <Modal.Body>

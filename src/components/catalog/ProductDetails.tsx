@@ -46,7 +46,7 @@ const ProductDetails = () => {
                   [ProductDetails - JSON]
                </div>
                <div className="row">
-                  <div className="col-md-6">
+                  <div className="col-sm-6">
                      {images && (
                         <img
                            src={URL.createObjectURL(images[0])}
@@ -55,7 +55,7 @@ const ProductDetails = () => {
                      )}
                   </div>
 
-                  <div className="col-ms-6">
+                  <div className="col-sm-6">
                      <ProductDetailTitle product={details} />
                   </div>
                </div>

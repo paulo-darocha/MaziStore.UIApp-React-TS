@@ -1,82 +1,87 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import UserProfile from "./UserProfile";
 import CheckAuth from "../auth/CheckAuth";
 import UserOrders from "./UserOrders";
 import OrderDetails from "../orders/OrderDetails";
 import UserAddresses from "./UserAddresses";
 import NewAddressForm from "../orders/NewAddressForm";
+import { useAppSelector } from "../../redux-store/reduxStore";
 
 const UserNav = () => {
    const navigate = useNavigate();
+   const user = useAppSelector((x) => x.username);
 
    return (
-      <>
-         <div>
-            <div className="row">
-               <div className="col-2 mt-5">
-                  <ButtonGroup vertical>
-                     <Button variant="outline-secondary">
-                        <h4>Navigation</h4>
-                     </Button>
-
+      <div className="container-fluid">
+         <div className="row border">
+            <Navbar data-bs-theme="light" className="py-0 float-start">
+               <Container>
+                  <Nav>
                      <Button
-                        variant="outline-secondary"
+                        size="sm"
+                        className="me-1"
+                        variant="outline-dark"
                         onClick={() => navigate("/profile")}
                      >
                         MyProfile
                      </Button>
-
                      <Button
-                        variant="outline-secondary"
+                        size="sm"
+                        className="mx-1"
+                        variant="outline-dark"
                         onClick={() => navigate("orders")}
                      >
-                        My Orders
+                        MyOrders
                      </Button>
-
                      <Button
-                        variant="outline-secondary"
+                        size="sm"
+                        className="mx-1"
+                        variant="outline-dark"
                         onClick={() => navigate("addresses")}
                      >
-                        My Addresses
+                        MyAddresses
                      </Button>
-                  </ButtonGroup>
-               </div>
+                  </Nav>
+               </Container>
+            </Navbar>
+            <strong>{user}</strong>
+         </div>
 
-               <div className="col-10">
-                  <Routes>
-                     <Route path="/" element={<UserProfile />} />
-                     <Route
-                        path="orders"
-                        element={
-                           <CheckAuth returnUrl="/profile/orders">
-                              <UserOrders />
-                           </CheckAuth>
-                        }
-                     />
-                     <Route
-                        path="order/:id"
-                        element={
-                           <CheckAuth returnUrl="/profile/orders">
-                              <OrderDetails />
-                           </CheckAuth>
-                        }
-                     />
-                     <Route
-                        path="addresses"
-                        element={
-                           <CheckAuth returnUrl="/profile/addresses">
-                              <UserAddresses />
-                           </CheckAuth>
-                        }
-                     />
+         <div className="row">
+            <div>
+               <Routes>
+                  <Route path="/" element={<UserProfile />} />
+                  <Route
+                     path="orders"
+                     element={
+                        <CheckAuth returnUrl="/profile/orders">
+                           <UserOrders />
+                        </CheckAuth>
+                     }
+                  />
+                  <Route
+                     path="order/:id"
+                     element={
+                        <CheckAuth returnUrl="/profile/orders">
+                           <OrderDetails />
+                        </CheckAuth>
+                     }
+                  />
+                  <Route
+                     path="addresses"
+                     element={
+                        <CheckAuth returnUrl="/profile/addresses">
+                           <UserAddresses />
+                        </CheckAuth>
+                     }
+                  />
 
-                     <Route path="add-address" element={<NewAddressForm />} />
-                  </Routes>
-               </div>
+                  <Route path="add-address" element={<NewAddressForm />} />
+               </Routes>
             </div>
          </div>
-      </>
+      </div>
    );
 };
 

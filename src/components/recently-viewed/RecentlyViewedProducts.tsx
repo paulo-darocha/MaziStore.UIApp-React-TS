@@ -30,7 +30,7 @@ const RecentlyViewedProducts: FC<T_Props> = ({ productId }) => {
          </div>
          <div className="row">
             {products?.map((product: T_ProductThumbnail) => (
-               <div className="col-3" key={product.id}>
+               <div className="col-6 col-sm-4 col-md-3" key={product.id}>
                   <ProductThumbnail product={product} />
                </div>
             ))}

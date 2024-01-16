@@ -1,9 +1,13 @@
-import { FC, useEffect, useState } from "react";
+import { FC, Fragment, useEffect, useState } from "react";
 import { T_ProductThumbnail } from "../../types/CatalogTypes";
-import { Card, Modal } from "react-bootstrap";
+import { Button, Card, Modal } from "react-bootstrap";
 import { getImage } from "../../webApis/CoreWebApi";
 import StarRating from "react-star-ratings";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons/faShoppingCart";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons/faCartShopping";
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
 
 type T_Props = { product: T_ProductThumbnail };
 
@@ -23,7 +27,17 @@ const ProductThumbnail: FC<T_Props> = ({ product }) => {
                onClick={() => navigate(`/product/${product.id}`)}
                style={{ cursor: "pointer" }}
             >
-               {image && <Card.Img src={URL.createObjectURL(image)} />}
+               {image && (
+                  <Fragment>
+                     <Card.Img src={URL.createObjectURL(image)} />
+                     <Card.ImgOverlay className="text-end">
+                        <Button variant="outline-secondary" size="lg">
+                           <FontAwesomeIcon icon={faAdd} />
+                           <FontAwesomeIcon icon={faShoppingCart} />
+                        </Button>
+                     </Card.ImgOverlay>
+                  </Fragment>
+               )}
                <Card.Body>
                   <Card.Title>
                      <span className="h5">{product.name}</span>

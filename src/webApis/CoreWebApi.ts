@@ -6,7 +6,10 @@ const serverScheme = import.meta.env.VITE_SCHEME;
 const serverPort = import.meta.env.VITE_PORT;
 const serverHost = import.meta.env.VITE_HOST;
 
-export const server = `${serverScheme}://${serverHost}:${serverPort}`;
+export const server =
+   serverPort == 0 || serverPort == undefined
+      ? `${serverScheme}://${serverHost}`
+      : `${serverScheme}://${serverHost}:${serverPort}`;
 export const serverApi = `${server}/api`;
 
 const userAddressApi = `${serverApi}/UserAddress`;
@@ -59,16 +62,20 @@ export const sendAddressToServer = async (
    }
 };
 
-export const getAddressesFromServer = async () => {
-   const response = await axios.get(userAddressApi, { withCredentials: true });
+export const getAddressesFromServer = async (token: string) => {
+   const response = await axios.get(userAddressApi, {
+      withCredentials: true,
+      headers: { Authorization: `Bearer ${token}` },
+   });
    if (response.status === 200) {
       return response.data;
    }
 };
 
-export const getFormForNewAddress = async () => {
+export const getFormForNewAddress = async (token: string) => {
    const response = await axios.get(`${userAddressApi}/create`, {
       withCredentials: true,
+      headers: { Authorization: `Bearer ${token}` },
    });
    if (response.status === 200) {
       return response.data;

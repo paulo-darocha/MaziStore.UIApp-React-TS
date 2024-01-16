@@ -3,17 +3,25 @@ import {
    faHomeAlt,
    faInfoCircle,
    faPencil,
+   faSearch,
+   faSearchLocation,
+   faSearchPlus,
    faShoppingCart,
+   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
    Badge,
    Button,
    Container,
+   InputGroup,
    Nav,
    NavDropdown,
    Navbar,
    Offcanvas,
+   OverlayTrigger,
+   Popover,
+   Form,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -23,7 +31,9 @@ import { setItemsCount } from "../../redux-store/cartItemsReducer";
 
 const Navigation = () => {
    const [show, setShow] = useState(false);
+   const [showSearch, setShowSearch] = useState(false);
    const [maxWidth, setMaxWidth] = useState<object>();
+   const [search, setSearch] = useState("");
    const navigate = useNavigate();
 
    const cartCount = useAppSelector((x) => x.items);
@@ -42,17 +52,59 @@ const Navigation = () => {
       }, 150);
    }, [show]);
 
+   const searchover = (
+      <Popover className="bg-secondary">
+         <Popover.Header className="bg-secondary text-white" as="h5">
+            Search
+            <FontAwesomeIcon
+               className="float-end"
+               icon={faX}
+               onClick={() => setShowSearch(!showSearch)}
+            />
+         </Popover.Header>
+         <Popover.Body>
+            <InputGroup>
+               <Form.Control
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+               ></Form.Control>
+               <InputGroup.Text>
+                  <FontAwesomeIcon icon={faSearch} />
+               </InputGroup.Text>
+            </InputGroup>
+         </Popover.Body>
+      </Popover>
+   );
+
    return (
       <Navbar
          expand="md"
-         className=""
+         className="p-0"
          style={{ backgroundColor: "aliceblue" }}
          sticky="top"
       >
          <Container fluid>
-            <Navbar.Brand className="" onClick={() => navigate("/")}>
-               <FontAwesomeIcon icon={faHomeAlt} />
-               <strong className="ps-2">MaziStore</strong>
+            <Navbar.Brand className="">
+               <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate("/")}
+               >
+                  <FontAwesomeIcon icon={faHomeAlt} />
+                  <strong className="ps-2">MaziStore</strong>
+               </span>
+               <OverlayTrigger
+                  show={showSearch}
+                  placement="bottom"
+                  overlay={searchover}
+               >
+                  <Button
+                     variant="outline-dark"
+                     className="my-1 ms-2"
+                     onClick={() => setShowSearch(!showSearch)}
+                  >
+                     <FontAwesomeIcon icon={faSearchPlus} />
+                  </Button>
+               </OverlayTrigger>
             </Navbar.Brand>
 
             <Navbar.Toggle onClick={() => setShow(true)} />
@@ -69,7 +121,7 @@ const Navigation = () => {
                <Offcanvas.Body className="text-end">
                   <Nav.Link
                      onClick={() => navigate("/about")}
-                     className="m-2 d-grid"
+                     className="m-1 d-grid"
                   >
                      <Button
                         variant="outline-primary"
@@ -86,35 +138,35 @@ const Navigation = () => {
 
                   <Nav.Link
                      onClick={() => navigate("/comment")}
-                     className="m-2 d-grid"
+                     className="m-1 d-grid"
                   >
                      <Button
                         variant="outline-primary"
                         onClick={() => setShow(false)}
                      >
                         <FontAwesomeIcon icon={faPencil} className="me-1" />
-                        Leave a Comment
+                        Comment
                      </Button>
                   </Nav.Link>
 
                   <Nav.Link
                      onClick={() => navigate("/admin")}
-                     className="m-2  d-grid"
+                     className="m-1  d-grid"
                   >
                      <Button
                         variant="outline-primary"
                         onClick={() => setShow(false)}
                      >
                         <FontAwesomeIcon icon={faBriefcase} className="me-1" />
-                        Administration
+                        Admin
                      </Button>
                   </Nav.Link>
 
                   <Nav.Link
                      onClick={() => navigate("/cart")}
-                     className="my-2 me-2 d-grid"
+                     className="my-1 me-1 d-grid"
                      style={
-                        !show ? { marginLeft: "auto" } : { marginLeft: "8px" }
+                        !show ? { marginLeft: "auto" } : { marginLeft: "4px" }
                      }
                   >
                      <span
@@ -138,7 +190,7 @@ const Navigation = () => {
                      <>
                         <Nav.Link
                            onClick={() => navigate("/login")}
-                           className="m-2 d-grid"
+                           className="m-1 d-grid"
                         >
                            <Button
                               variant="outline-primary"
@@ -150,7 +202,7 @@ const Navigation = () => {
 
                         <Nav.Link
                            onClick={() => navigate("/register")}
-                           className="m-2 d-grid"
+                           className="m-1 d-grid"
                         >
                            <Button
                               variant="outline-primary"
@@ -163,7 +215,7 @@ const Navigation = () => {
                   ) : (
                      <NavDropdown
                         title={`${id}.${username}`}
-                        className="btn btn-outline-primary m-2 d-grid"
+                        className="btn btn-outline-primary m-1 d-grid"
                      >
                         <NavDropdown.Item
                            onClick={() => navigate("/logout")}
@@ -202,7 +254,7 @@ const Navigation = () => {
                         </NavDropdown.Item>
 
                         <NavDropdown.Item
-                           onClick={() => navigate("profile/address")}
+                           onClick={() => navigate("profile/addresses")}
                            className="d-grid"
                         >
                            <Button

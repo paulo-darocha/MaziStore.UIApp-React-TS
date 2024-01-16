@@ -13,7 +13,7 @@ import Payment from "./components/payments/Payment";
 import Thanks from "./components/orders/Thanks";
 import UserNav from "./components/user/UserNav";
 import About from "./components/user/About";
-import Comment from "./components/user/Comment";
+import Comment from "./components/auth/Comment";
 
 const AppRoutes = () => {
    return (

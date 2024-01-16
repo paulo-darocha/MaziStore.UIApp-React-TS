@@ -6,8 +6,8 @@ import {
    getStateFromCountry,
    sendAddressToServer,
 } from "../../webApis/CoreWebApi";
-import { useAppSelector } from "../../redux-store/reduxStore";
-
+import { useAppDispatch, useAppSelector } from "../../redux-store/reduxStore";
+import { setModified } from "../../redux-store/modifiedReducer";
 
 type T_Props = {
    addressForm?: T_AddressFormVm;
@@ -18,7 +18,8 @@ type T_SelectState = { id: string; name: string };
 const NewAddressForm: FC<T_Props> = ({ addressForm, newAddress }) => {
    const [showNewAddr, setShowNewAddr] = useState(false);
    const [state, setState] = useState<T_SelectState[]>();
-   const token = useAppSelector(x => x.token)
+   const token = useAppSelector((x) => x.token);
+   const dispatch = useAppDispatch();
 
    const {
       register,
@@ -38,6 +39,7 @@ const NewAddressForm: FC<T_Props> = ({ addressForm, newAddress }) => {
    const onClickSubmitForm = async (data: T_AddressFormVm) => {
       sendAddressToServer(data, token).then((res) => {
          newAddress && newAddress(res.addressId);
+         dispatch(setModified());
          setShowNewAddr(false);
       });
    };
@@ -45,7 +47,7 @@ const NewAddressForm: FC<T_Props> = ({ addressForm, newAddress }) => {
    return (
       <div>
          <div className="mt-3">
-            <span className="h4">Shipping Address: &emsp;</span>
+            <span className="h6">Shipping Address: &emsp;</span>
             <span className="float-end">
                <Button
                   variant="outline-secondary"

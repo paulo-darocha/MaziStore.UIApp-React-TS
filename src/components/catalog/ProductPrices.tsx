@@ -31,7 +31,7 @@ const ProductPrices: FC<T_Props> = ({ product, pending }) => {
 
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
-   const id = useAppSelector(x => x.id)
+   const id = useAppSelector((x) => x.id);
 
    const onAlterQuantity = (action: "add" | "subtract") => {
       if (action == "add") {
@@ -65,8 +65,6 @@ const ProductPrices: FC<T_Props> = ({ product, pending }) => {
          setShow(true);
       }
    };
-
-
 
    const onCloseModal = () => {
       () => setShow(false);
@@ -121,41 +119,52 @@ const ProductPrices: FC<T_Props> = ({ product, pending }) => {
                      product.stockQuantity <= 0 && (
                         <div className="text-danger h6 my-2">out of stock</div>
                      )}
-                  <div className="d-grid mt-3">
-                     <span className="h6">quantity:</span>
-                     <ButtonGroup style={{ maxWidth: "150px" }}>
-                        <Button
-                           variant="outline-dark"
-                           onClick={() => onAlterQuantity("subtract")}
-                        >
-                           -
-                        </Button>
-                        <Button variant="outline-dark">{quantity}</Button>
-                        <Button
-                           onBlur={() => setMessage("")}
-                           variant="outline-dark"
-                           onClick={() => onAlterQuantity("add")}
-                        >
-                           +
-                        </Button>
-                     </ButtonGroup>
+
+                  <br />
+                  <div className="h6 mt-3">quantity:</div>
+                  <div className="row">
+                     <div className="col-auto">
+                        <ButtonGroup style={{ width: "150px" }}>
+                           <Button
+                              size="lg"
+                              variant="outline-dark"
+                              onClick={() => onAlterQuantity("subtract")}
+                           >
+                              -
+                           </Button>
+                           <Button size="lg" variant="outline-dark">
+                              {quantity}
+                           </Button>
+                           <Button
+                              size="lg"
+                              onBlur={() => setMessage("")}
+                              variant="outline-dark"
+                              onClick={() => onAlterQuantity("add")}
+                           >
+                              +
+                           </Button>
+                        </ButtonGroup>
+                     </div>
+                     <div className="col-6">
+                        {!product.isAllowToOrder ||
+                        (product.stockTrackingIsEnabled &&
+                           product.stockQuantity <= 0) ? null : (
+                           <div
+                              onClick={onClickAddToCart}
+                              onBlur={() => setMessage("")}
+                           >
+                              <Button variant="success" size="lg">
+                                 Add to Cart
+                              </Button>
+                           </div>
+                        )}
+                     </div>
                      <div className="my-2 text-danger">{message}</div>
                   </div>
                </>
             )}
          </div>
          <div>
-            {!product.isAllowToOrder ||
-               (product.stockTrackingIsEnabled &&
-                  product.stockQuantity <= 0) ? null : (
-               <div
-                  className="my-2"
-                  onClick={onClickAddToCart}
-                  onBlur={() => setMessage("")}
-               >
-                  <Button>Add to Cart</Button>
-               </div>
-            )}
             <div className="my-3"></div>
             <Link to="">Add To Wishlist</Link> |{" "}
             <Link to="">Add To Compare</Link>
