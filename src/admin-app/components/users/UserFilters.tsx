@@ -1,9 +1,8 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { T_SmartTableParam } from "../types/UserTypes";
-import { useAppDispatch } from "../../redux-store/reduxStore";
-import { addSearch } from "../../redux-store/userParamReducer";
+import { useAppDispatch } from "../../../redux-store/reduxStore";
+import { addSearch } from "../../../redux-store/userParamReducer";
 
-type T_Dictionary = { [name: string]: string };
+// type T_Dictionary = { [name: string]: string };
 
 export type T_SearchObject = {
    Email?: string;

@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import { T_UserResult } from "../types/UserTypes";
 import { Button, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,9 +7,13 @@ import {
    faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { deleteUser } from "../web-api/UsersWebApi";
-import { useAppDispatch, useAppSelector } from "../../redux-store/reduxStore";
-import { setModified } from "../../redux-store/modifiedReducer";
+import { T_UserResult } from "../../types/UserTypes";
+import {
+   useAppDispatch,
+   useAppSelector,
+} from "../../../redux-store/reduxStore";
+import { deleteUser } from "../../hooks/UsersWebApi";
+import { setModified } from "../../../redux-store/modifiedReducer";
 
 type T_Props = { user: T_UserResult };
 
@@ -23,7 +26,7 @@ const UsersTableRow: FC<T_Props> = ({ user }) => {
    const onClickDeleteUser = () => {
       deleteUser(user.id, token).then(() => {
          setShowDelete(false);
-         dispatch(setModified(true));
+         dispatch(setModified());
       });
    };
 

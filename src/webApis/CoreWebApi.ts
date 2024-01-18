@@ -1,19 +1,8 @@
 import axios from "axios";
 import { T_AddressFormVm } from "../types/OrderTypes";
-// import "dotenv/config";
-
-const serverScheme = import.meta.env.VITE_SCHEME;
-const serverPort = import.meta.env.VITE_PORT;
-const serverHost = import.meta.env.VITE_HOST;
-
-export const server =
-   serverPort == 0 || serverPort == undefined
-      ? `${serverScheme}://${serverHost}`
-      : `${serverScheme}://${serverHost}:${serverPort}`;
-export const serverApi = `${server}/api`;
+import { server, serverApi } from "./WebServerUrls";
 
 const userAddressApi = `${serverApi}/UserAddress`;
-
 const homeServerApi = `${serverApi}/home`;
 const addressApi = `${serverApi}/UserAddress`;
 

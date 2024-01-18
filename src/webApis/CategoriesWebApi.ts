@@ -1,6 +1,6 @@
 import axios from "axios";
-import { serverApi } from "./CoreWebApi";
 import { T_SearchOption } from "../types/CategoriesTypes";
+import { serverApi } from "./WebServerUrls";
 
 const categoryMenuApi = `${serverApi}/CategoryMenu/`;
 const categoryApi = `${serverApi}/Category`;

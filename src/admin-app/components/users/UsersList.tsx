@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import UserFilters from "./UserFilters";
 import UsersTable from "./UsersTable";
-import { T_SmartTableResult, T_UserResult } from "../types/UserTypes";
 import { Modal } from "react-bootstrap";
-import { getUserList } from "../web-api/UsersWebApi";
-import { useAppSelector } from "../../redux-store/reduxStore";
+import { T_SmartTableResult, T_UserResult } from "../../types/UserTypes";
+import { useAppSelector } from "../../../redux-store/reduxStore";
+import { getUserList } from "../../hooks/UsersWebApi";
 
-const UsersList = () => {
+export const UsersList = () => {
    const [dev, setDev] = useState(false);
    const [users, setUsers] = useState<
       T_SmartTableResult<T_UserResult> | undefined
@@ -47,5 +47,3 @@ const UsersList = () => {
       </div>
    );
 };
-
-export default UsersList;

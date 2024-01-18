@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Button, Modal } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { T_RegisterViewModel } from "../../types/AuthTypes";
 import { useState } from "react";
 import { registerNewUser } from "../../webApis/AuthWebApi";
@@ -44,6 +44,11 @@ const Registration = () => {
          >
             [ Registration - FormData ]
          </div>
+
+         <div className="m-3" style={{ fontSize: "1.1em" }}>
+            Already have an account? <Link to="/login">Login here</Link> .
+         </div>
+
          <form onSubmit={handleSubmit(onClickSubmit)}>
             <div>
                <h4>Create a new Account</h4>

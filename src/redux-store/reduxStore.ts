@@ -6,6 +6,7 @@ import tokenReducer from "./tokenReducer";
 import idReducer from "./idReducer";
 import modifiedReducer from "./modifiedReducer";
 import userParamReducer from "./userParamReducer";
+import productReducer from "../admin-app/reducers/productReducer";
 
 export const reduxStore = configureStore({
    reducer: {
@@ -14,7 +15,8 @@ export const reduxStore = configureStore({
       username: userNameReducer,
       id: idReducer,
       modified: modifiedReducer,
-      params: userParamReducer,
+      userParams: userParamReducer,
+      productParams: productReducer,
    },
 });
 

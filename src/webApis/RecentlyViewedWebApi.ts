@@ -1,6 +1,6 @@
 import axios from "axios";
-import { serverApi } from "./CoreWebApi";
 import { T_ProductsRecentlyViewedVm } from "../types/RecentlyViewedTypes";
+import { serverApi } from "./WebServerUrls";
 
 const recentApi = `${serverApi}/ProductRecentlyViewed`;
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { T_WidgetInstanceViewModel } from "../types/CoreTypes";
-import { serverApi } from "./CoreWebApi";
+import { serverApi } from "./WebServerUrls";
 
 const productWidApi = `${serverApi}/ProductWidget`;
 const productApi = `${serverApi}/Product`;

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { getPublicCommentList } from "../../webApis/AuthWebApi";
-import { T_PublicCommentVm } from "../../types/AuthTypes";
+import { T_PublicCommentVm } from "../../../types/AuthTypes";
+import { getPublicCommentList } from "../../../webApis/AuthWebApi";
 
 const CommentsList = () => {
    const [commentList, setCommentList] = useState<T_PublicCommentVm[]>([]);
+
    useEffect(() => {
       getPublicCommentList().then((res) => setCommentList(res));
    }, []);
@@ -14,13 +15,14 @@ const CommentsList = () => {
          {commentList &&
             commentList.length > 0 &&
             commentList.map((comment) => (
-               <div>
+               <div key={comment.createdOn.toString()}>
                   <h5>{comment.title}</h5>
                   <p>{comment.comment}</p>
                   {comment.name && (
                      <p className="float-end">
                         <strong>
-                           written by {comment.name} (<i>{comment.email}</i>)
+                           written by {comment.name} (
+                           <i>{comment.email.substring(0, 4)}@...</i>)
                         </strong>
                      </p>
                   )}

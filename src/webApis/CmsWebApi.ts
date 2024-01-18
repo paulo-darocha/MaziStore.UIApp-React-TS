@@ -1,6 +1,6 @@
 import axios from "axios";
-import { serverApi } from "./CoreWebApi";
 import { T_WidgetInstanceViewModel } from "../types/CoreTypes";
+import { serverApi } from "./WebServerUrls";
 
 const carouselServerApi = `${serverApi}/CarouselWidget`;
 

@@ -53,7 +53,7 @@ const Navigation = () => {
    }, [show]);
 
    const searchover = (
-      <Popover className="bg-secondary">
+      <Popover className="bg-secondary" style={{ minWidth: "400px" }}>
          <Popover.Header className="bg-secondary text-white" as="h5">
             Search
             <FontAwesomeIcon

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { serverApi } from "./CoreWebApi";
+import { serverApi } from "./WebServerUrls";
 
 const paymentApi = `${serverApi}/checkout/payment`;
 const coDPaymentApi = `${serverApi}/CoD`;

@@ -70,6 +70,7 @@ const Comment = () => {
                      {...register("title")}
                      disabled={disabled}
                      className="form-control"
+                     style={{ fontSize: "1.08em", fontWeight: "bold" }}
                   />
                </div>
             </div>

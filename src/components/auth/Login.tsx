@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { T_LoginViewModel } from "../../types/AuthTypes";
 import { Button } from "react-bootstrap";
 import { useAppDispatch } from "../../redux-store/reduxStore";
@@ -116,6 +116,9 @@ const Login: FC<T_Props> = ({ url }) => {
                      </Button>
                   </div>
                </form>
+               <div className="mt-4" style={{ fontSize: "1.1em" }}>
+                  Don't have an account? <Link to="/register">Create</Link> a new
+               </div>
             </div>
             <div className="col-md-5 p-3">
                <section>

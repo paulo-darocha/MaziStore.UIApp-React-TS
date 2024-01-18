@@ -1,10 +1,10 @@
 import { Button } from "react-bootstrap";
-import { useAppDispatch, useAppSelector } from "../redux-store/reduxStore";
-import { T_LoginViewModel } from "../types/AuthTypes";
-import { login } from "../webApis/AuthWebApi";
-import { setToken } from "../redux-store/tokenReducer";
-import { setUsername } from "../redux-store/userNameReducer";
-import { setId } from "../redux-store/idReducer";
+import { useAppDispatch, useAppSelector } from "../../redux-store/reduxStore";
+import { T_LoginViewModel } from "../../types/AuthTypes";
+import { login } from "../../webApis/AuthWebApi";
+import { setToken } from "../../redux-store/tokenReducer";
+import { setUsername } from "../../redux-store/userNameReducer";
+import { setId } from "../../redux-store/idReducer";
 import AdminRoutes from "./AdminRoutes";
 import AdminNavigation from "./AdminNavigation";
 import { useNavigate } from "react-router-dom";

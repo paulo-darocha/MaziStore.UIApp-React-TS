@@ -1,14 +1,14 @@
 import { FC, useEffect, useState } from "react";
 import UsersTableRow from "./UsersTableRow";
-import { T_Sort, T_UserResult } from "../types/UserTypes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
    faArrowDown,
    faArrowUp,
    faSort,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAppDispatch } from "../../redux-store/reduxStore";
-import { toggleSort } from "../../redux-store/userParamReducer";
+import { T_Sort, T_UserResult } from "../../types/UserTypes";
+import { useAppDispatch } from "../../../redux-store/reduxStore";
+import { toggleSort } from "../../../redux-store/userParamReducer";
 
 type T_Props = { users: T_UserResult[] };
 

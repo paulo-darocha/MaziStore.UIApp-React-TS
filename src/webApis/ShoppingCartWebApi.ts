@@ -3,7 +3,7 @@ import {
    T_AddToCartModel,
    T_CartQuantityUpdate,
 } from "../types/ShoppingCartTypes";
-import { serverApi } from "./CoreWebApi";
+import { serverApi } from "./WebServerUrls";
 
 const cartApi = `${serverApi}/cart`;
 

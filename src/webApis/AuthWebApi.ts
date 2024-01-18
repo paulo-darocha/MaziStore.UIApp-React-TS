@@ -6,8 +6,8 @@ import {
    T_PublicCommentVm,
    T_RegisterViewModel,
 } from "../types/AuthTypes";
-import { serverApi } from "./CoreWebApi";
 import { OneResponse, T_UserResult } from "../types/CoreTypes";
+import { serverApi } from "./WebServerUrls";
 
 const authApi = `${serverApi}/account`;
 const publicCommentApi = `${serverApi}/PublicComment`;

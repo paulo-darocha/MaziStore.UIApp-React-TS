@@ -1,9 +1,9 @@
 import axios from "axios";
-import { serverApi } from "./CoreWebApi";
 import {
    T_DeliveryInformationVm,
    T_TaxAndShippingPriceRequestVm,
 } from "../types/OrderTypes";
+import { serverApi } from "./WebServerUrls";
 
 const checkoutApi = `${serverApi}/checkout`;
 const ordersApi = `${serverApi}/order`;
