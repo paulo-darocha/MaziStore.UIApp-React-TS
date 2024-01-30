@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { T_SearchObject, T_SmartTableParam } from "../types/UserTypes";
+import { T_SearchObject, T_SmartTableParam } from "../admin-types/UserTypes";
 
 const initialState: T_SmartTableParam = {
    pagination: { start: 0, totalItemCount: 0, number: 200 },

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { T_ProductListItem } from "../../types/CatalogAdmTypes";
+import { T_ProductListItem } from "../../admin-types/CatalogAdmTypes";
 import ProductRow from "./ProductRow";
 import ProductRowSm from "./ProductRowSm";
 
@@ -19,7 +19,10 @@ const ProductsTableSm: FC<T_Props> = ({ items }) => {
                </tr>
             </thead>
             <tbody>
-               {items && items.map((item) => <ProductRowSm item={item} />)}
+               {items &&
+                  items.map((item) => (
+                     <ProductRowSm item={item} key={item.id} />
+                  ))}
             </tbody>
          </table>
       </div>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { T_SmartTableParam } from "../types/UserTypes";
+import { T_SmartTableParam } from "../admin-types/UserTypes";
 import { serverApi } from "../../webApis/WebServerUrls";
 
 const userApi = `${serverApi}/users`;

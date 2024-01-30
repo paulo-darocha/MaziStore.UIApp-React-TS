@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { T_ProductListItem } from "../../types/CatalogAdmTypes";
+import { T_ProductListItem } from "../../admin-types/CatalogAdmTypes";
 import { Button, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -24,60 +24,58 @@ const ViewProduct: FC<T_Props> = ({ item }) => {
    return (
       <Modal.Body>
          <Modal.Header closeButton>
-            <span className="h5">{item.name}</span>{" "}
-            <Button variant="outline-primary" className="ms-auto px-3 me-1">
-               <FontAwesomeIcon icon={faPause} />
-            </Button>
-            <Button
-               variant="outline-success"
-               className="mx-1"
-               onClick={() => navigate(`edit/${item.id}`)}
-            >
-               <FontAwesomeIcon icon={faEdit} />
-            </Button>
-            <Button variant="outline-danger" className="mx-1">
-               <FontAwesomeIcon icon={faTrash} />
-            </Button>
+            <div>
+               <Button variant="outline-primary" className="px-3 me-1">
+                  <FontAwesomeIcon icon={faPause} />
+                  {"  "}pause
+               </Button>
+               <Button
+                  variant="outline-success"
+                  className="mx-1"
+                  onClick={() => navigate(`edit/${item.id}`)}
+               >
+                  <FontAwesomeIcon icon={faEdit} />
+                  {"  "}edit
+               </Button>
+               <Button variant="outline-danger" className="mx-1">
+                  <FontAwesomeIcon icon={faTrash} />
+                  {"  "}delete
+               </Button>
+            </div>
          </Modal.Header>
-         <br />
+
          <div>
+            <div className="h5 text-center my-3">{item.name}</div>
             <dl className="row">
                <dt className="offset-2 col-6">Has Options</dt>
                <dd className="col-auto">{getIcon(item.hasOptions)}</dd>
             </dl>
-
             <dl className="row">
                <dt className="offset-2 col-6">Is Visible Individually</dt>
                <dd className="col-auto">
                   {getIcon(item.isVisibleIndividually)}
                </dd>
             </dl>
-
             <dl className="row">
                <dt className="offset-2 col-6">Is Featured</dt>
                <dd className="col-auto">{getIcon(item.isFeatured)}</dd>
             </dl>
-
             <dl className="row">
                <dt className="offset-2 col-6">Is Allow To Order</dt>
                <dd className="col-auto">{getIcon(item.isAllowToOrder)}</dd>
             </dl>
-
             <dl className="row">
                <dt className="offset-2 col-6">Is Call For Pricing</dt>
                <dd className="col-auto">{getIcon(item.isCallForPricing)}</dd>
             </dl>
-
             <dl className="row">
                <dt className="offset-2 col-6">Stock Quantity</dt>
                <dd className="col-auto">{item.stockQuantity}</dd>
             </dl>
-
             <dl className="row">
                <dt className="offset-2 col-6">Is Publishedy</dt>
                <dd className="col-auto">{getIcon(item.isPublished)}</dd>
             </dl>
-
             <dl className="row">
                <dt className="offset-2 col-6">Created On</dt>
                <dd className="col-auto">

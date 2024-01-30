@@ -82,6 +82,7 @@ export type T_ProductVariationVm = {
    price: number;
    oldPrice?: number;
    thumbnailImage: string;
+   thumbnailImageUrl: string;
    newImages: object;
    imageUrls: string[];
    optionCombinations: T_ProductOptionCombinationVm[];
@@ -105,3 +106,12 @@ export type T_ProductLinkVm = {
    name: string;
    isPublished: boolean;
 };
+
+export type T_ProductForm = {
+   product: T_ProductVm;
+   thumbnailImage?: Blob;
+   productImages?: Blob[];
+   productDocuments?: File[];
+};
+
+export type T_ProductOption = { id: number; name: string };

@@ -1,9 +1,24 @@
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "react-bootstrap";
 
 const UserProfile = () => {
    return (
       <div>
          <div className="h4 text-center m-3">UserProfile</div>
+         <div className="text-center border border-warning">
+            <FontAwesomeIcon
+               icon={faExclamationTriangle}
+               color="orange"
+               className="px-2"
+            />
+            This page is in development
+            <FontAwesomeIcon
+               icon={faExclamationTriangle}
+               color="orange"
+               className="px-2"
+            />
+         </div>
          <h6>Personal Data:</h6>
          <div className="border">
             <div className="row form-group mt-3 text-end">

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import UserFilters from "./UserFilters";
 import UsersTable from "./UsersTable";
 import { Modal } from "react-bootstrap";
-import { T_SmartTableResult, T_UserResult } from "../../types/UserTypes";
+import { T_SmartTableResult, T_UserResult } from "../../admin-types/UserTypes";
 import { useAppSelector } from "../../../redux-store/reduxStore";
-import { getUserList } from "../../hooks/UsersWebApi";
+import { getUserList } from "../../admin-hooks/UsersWebApi";
 
 export const UsersList = () => {
    const [dev, setDev] = useState(false);

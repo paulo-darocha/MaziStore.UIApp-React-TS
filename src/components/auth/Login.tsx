@@ -8,6 +8,8 @@ import { setUsername } from "../../redux-store/userNameReducer";
 import { login } from "../../webApis/AuthWebApi";
 import { setToken } from "../../redux-store/tokenReducer";
 import { setId } from "../../redux-store/idReducer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHandPointRight } from "@fortawesome/free-solid-svg-icons";
 
 type T_Props = { url?: string };
 
@@ -23,7 +25,7 @@ const Login: FC<T_Props> = ({ url }) => {
    } = useForm<T_LoginViewModel>({
       mode: "onBlur",
       defaultValues: {
-         email: "paulo@test.com",
+         email: "visitor@mazistore.com",
          password: "Test123#",
          rememberMe: true,
       },
@@ -117,10 +119,25 @@ const Login: FC<T_Props> = ({ url }) => {
                   </div>
                </form>
                <div className="mt-4" style={{ fontSize: "1.1em" }}>
-                  Don't have an account? <Link to="/register">Create</Link> a new
+                  Don't have an account? <Link to="/register">Create</Link> a
+                  new
                </div>
             </div>
             <div className="col-md-5 p-3">
+               <h1> or ... </h1>
+               <h4>Login as a visitor</h4>
+               <div className="mt-3">
+                  <FontAwesomeIcon
+                     className="px-4"
+                     icon={faHandPointRight}
+                     size="xl"
+                     color="green"
+                  />
+                  <Button variant="success">
+                     <span>Login as Visitor</span>
+                  </Button>
+               </div>
+               <br /> <br /> <br />
                <section>
                   <h4>Use another service to log in.</h4>
                   <div>

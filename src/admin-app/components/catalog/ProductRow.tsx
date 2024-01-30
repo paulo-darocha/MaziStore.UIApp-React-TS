@@ -1,5 +1,5 @@
 import { FC, Fragment, useState } from "react";
-import { T_ProductListItem } from "../../types/CatalogAdmTypes";
+import { T_ProductListItem } from "../../admin-types/CatalogAdmTypes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
    faCheck,

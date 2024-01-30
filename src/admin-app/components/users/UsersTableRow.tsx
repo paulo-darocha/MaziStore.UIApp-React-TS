@@ -7,12 +7,12 @@ import {
    faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { T_UserResult } from "../../types/UserTypes";
+import { T_UserResult } from "../../admin-types/UserTypes";
 import {
    useAppDispatch,
    useAppSelector,
 } from "../../../redux-store/reduxStore";
-import { deleteUser } from "../../hooks/UsersWebApi";
+import { deleteUser } from "../../admin-hooks/UsersWebApi";
 import { setModified } from "../../../redux-store/modifiedReducer";
 
 type T_Props = { user: T_UserResult };

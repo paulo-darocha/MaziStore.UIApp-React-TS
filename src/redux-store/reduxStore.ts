@@ -7,6 +7,7 @@ import idReducer from "./idReducer";
 import modifiedReducer from "./modifiedReducer";
 import userParamReducer from "./userParamReducer";
 import productReducer from "../admin-app/reducers/productReducer";
+import editingProductReducer from "../admin-app/reducers/editingProductReducer";
 
 export const reduxStore = configureStore({
    reducer: {
@@ -17,6 +18,7 @@ export const reduxStore = configureStore({
       modified: modifiedReducer,
       userParams: userParamReducer,
       productParams: productReducer,
+      editingProduct: editingProductReducer,
    },
 });
 

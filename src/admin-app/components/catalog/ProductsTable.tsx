@@ -1,11 +1,10 @@
 import { FC } from "react";
-import { T_ProductListItem } from "../../types/CatalogAdmTypes";
+import { T_ProductListItem } from "../../admin-types/CatalogAdmTypes";
 import ProductRow from "./ProductRow";
 
 type T_Props = { items: T_ProductListItem[] };
 
 const ProductsTable: FC<T_Props> = ({ items }) => {
-   
    return (
       <div>
          <div>ProductsTable</div>
@@ -21,7 +20,8 @@ const ProductsTable: FC<T_Props> = ({ items }) => {
                </tr>
             </thead>
             <tbody>
-               {items && items.map((item) => <ProductRow item={item} />)}
+               {items &&
+                  items.map((item) => <ProductRow item={item} key={item.id} />)}
             </tbody>
          </table>
       </div>

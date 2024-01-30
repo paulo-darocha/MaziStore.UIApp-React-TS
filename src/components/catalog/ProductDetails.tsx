@@ -11,6 +11,7 @@ import { Modal } from "react-bootstrap";
 
 const ProductDetails = () => {
    const [details, setDetails] = useState<T_ProductDetail | null>(null);
+   const [selected, setSelected] = useState<Blob | undefined>();
    const [images, setImages] = useState<Blob[] | null>(null);
    const [dev, setDev] = useState(false);
 
@@ -35,6 +36,10 @@ const ProductDetails = () => {
       }
    }, [details]);
 
+   useEffect(() => {
+      if (images) setSelected(images[0]);
+   }, [images]);
+
    return (
       <div>
          {details && (
@@ -45,13 +50,43 @@ const ProductDetails = () => {
                >
                   [ProductDetails - JSON]
                </div>
+
                <div className="row">
-                  <div className="col-sm-6">
+                  {images && images.length > 1 && (
+                     <div className="col-md-1">
+                        {images.map((img) => (
+                           <img
+                              src={URL.createObjectURL(img)}
+                              style={{
+                                 maxWidth: `${300 / images.length}px`,
+                                 cursor: "pointer",
+                                 // maxWidth: "100px",
+                                 maxHeight: "100px",
+                                 objectFit: "contain",
+                              }}
+                              className="p-1 w-100"
+                              onClick={() => setSelected(img)}
+                           />
+                        ))}
+                     </div>
+                  )}
+
+                  <div className="col-md-5 col-sm-6 p-3 border text-center">
                      {images && (
-                        <img
-                           src={URL.createObjectURL(images[0])}
-                           className="w-100"
-                        />
+                        <>
+                           <div>
+                              {selected && (
+                                 <img
+                                    src={URL.createObjectURL(selected)}
+                                    className="w-100"
+                                    // style={{
+                                    //    maxWidth: "350px",
+                                    //    objectFit: "contain",
+                                    // }}
+                                 />
+                              )}
+                           </div>
+                        </>
                      )}
                   </div>
 

@@ -3,7 +3,7 @@ import {
    T_SearchObject,
    T_SmartTableParam,
    T_Sort,
-} from "../admin-app/types/UserTypes";
+} from "../admin-app/admin-types/UserTypes";
 
 const initialState: T_SmartTableParam = {
    pagination: { start: 0, totalItemCount: 0, number: 200 },

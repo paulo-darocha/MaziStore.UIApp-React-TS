@@ -34,7 +34,7 @@ const Comment = () => {
          >
             [ Comment - FormData ]
          </div>
-         <div className="h4 text-center my-3">Leave a Comment</div>
+         <div className="h4 text-center my-3">Leave a Public Comment</div>
 
          <form onSubmit={handleSubmit(onSubmitForm)}>
             <div className="row form-group pt-2">
@@ -87,15 +87,17 @@ const Comment = () => {
             </div>
 
             <div className="row form-group mt-3">
-               <label className="col-3 h6 form-label pt-2">
-                  Email (optional):
+               <label className="col-3 form-label pt-2">
+                  <span className="h6">Email (optional):</span>
                </label>
-               <div className="col-8">
+
+               <div className="col-8 text-start">
                   <input
                      {...register("email")}
                      disabled={disabled}
                      className="form-control"
                   />
+                  <small className="text-success">will not be shown</small>
                </div>
             </div>
 

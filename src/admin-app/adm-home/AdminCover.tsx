@@ -8,9 +8,23 @@ const AdminCover = () => {
       <div className="text-center">
          <div className="h3 m-3">Wellcome to MaziStore Administration</div>
          <div className="h5 m-3">(in development)</div>
-         <Button variant="outline-primary" onClick={() => navigate("comments")}>
-            See latest comments
-         </Button>
+
+         <div className="text-center row">
+            <div className="offset-4 col-4 d-grid gap-2">
+               <Button
+                  variant="outline-primary"
+                  onClick={() => navigate("products")}
+               >
+                  See all products
+               </Button>
+               <Button
+                  variant="outline-primary"
+                  onClick={() => navigate("comments")}
+               >
+                  See latest comments
+               </Button>
+            </div>
+         </div>
       </div>
    );
 };

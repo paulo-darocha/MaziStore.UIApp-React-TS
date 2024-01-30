@@ -19,8 +19,8 @@ const Registration = () => {
    } = useForm<T_RegisterViewModel>({
       mode: "onBlur",
       defaultValues: {
-         email: "paulo@test.com",
-         fullName: "PauloRocha",
+         email: "visitor@mazistore.com",
+         fullName: "(Visitor)",
          password: "Test123#",
          confirmPassword: "Test123#",
       },

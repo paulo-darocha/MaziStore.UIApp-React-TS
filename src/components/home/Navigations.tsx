@@ -4,7 +4,6 @@ import {
    faInfoCircle,
    faPencil,
    faSearch,
-   faSearchLocation,
    faSearchPlus,
    faShoppingCart,
    faX,
@@ -81,7 +80,7 @@ const Navigation = () => {
          expand="md"
          className="p-0"
          style={{ backgroundColor: "aliceblue" }}
-         sticky="top"
+         // sticky="top"
       >
          <Container fluid>
             <Navbar.Brand className="">
@@ -105,6 +104,17 @@ const Navigation = () => {
                      <FontAwesomeIcon icon={faSearchPlus} />
                   </Button>
                </OverlayTrigger>
+               
+               <span className="d-md-none">
+                  <Button
+                     variant="outline-danger"
+                     style={{ cursor: "pointer" }}
+                     onClick={() => navigate("/admin")}
+                     className="ms-1"
+                  >
+                     <FontAwesomeIcon icon={faBriefcase} />
+                  </Button>
+               </span>
             </Navbar.Brand>
 
             <Navbar.Toggle onClick={() => setShow(true)} />
@@ -154,7 +164,7 @@ const Navigation = () => {
                      className="m-1  d-grid"
                   >
                      <Button
-                        variant="outline-primary"
+                        variant="outline-danger"
                         onClick={() => setShow(false)}
                      >
                         <FontAwesomeIcon icon={faBriefcase} className="me-1" />

@@ -9,6 +9,8 @@ import {
    Form,
    Offcanvas,
    NavDropdown,
+   ToastContainer,
+   Toast,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -28,6 +30,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const AdminNavigation = () => {
+   const [showToast, setShowToast] = useState(true);
    const [show, setShow] = useState(false);
    const [showSearch, setShowSearch] = useState(false);
    const [search, setSearch] = useState("");
@@ -46,6 +49,7 @@ const AdminNavigation = () => {
          dispatch(setToken("x"));
          dispatch(setUsername(""));
          dispatch(setId(0));
+         navigate("/");
       });
    };
 
@@ -75,19 +79,38 @@ const AdminNavigation = () => {
 
    return (
       <>
-         <Alert
-            variant="warning"
-            onClose={() => setShow(false)}
-            dismissible
-            className="text-center"
+         <ToastContainer
+            className="p-3"
+            position="top-center"
+            style={{ zIndex: 1 }}
          >
-            You are logged in as "guest-admin" <br /> Only mocked data available
-         </Alert>
+            <Toast
+               bg="warning"
+               onClose={() => setShowToast(false)}
+               show={showToast}
+               delay={3000}
+               autohide
+               className="text-center"
+            >
+               <Toast.Header>
+                  <strong className="me-auto">MaziStore Administration</strong>
+               </Toast.Header>
+               <Toast.Body>
+                  You are logged in as "guest-admin".
+                  <br /> Only mocked data available
+               </Toast.Body>
+            </Toast>
+         </ToastContainer>
 
          <Navbar expand="md" className="p-0">
-            <Container>
+            <Container fluid>
+               <Navbar.Text>
+                  <Button onClick={() => navigate("")} className="mx-2">
+                     Adm Home
+                  </Button>
+               </Navbar.Text>
                <Navbar.Brand>
-                  <Button variant="outline-dark" onClick={() => navigate("/")}>
+                  <Button variant="outline-dark" onClick={onClickStoreName}>
                      <FontAwesomeIcon icon={faArrowLeftRotate} />
                      <strong className="ms-1">Exit</strong>
                   </Button>

@@ -6,7 +6,7 @@ import {
    faArrowUp,
    faSort,
 } from "@fortawesome/free-solid-svg-icons";
-import { T_Sort, T_UserResult } from "../../types/UserTypes";
+import { T_Sort, T_UserResult } from "../../admin-types/UserTypes";
 import { useAppDispatch } from "../../../redux-store/reduxStore";
 import { toggleSort } from "../../../redux-store/userParamReducer";
 
