@@ -1,6 +1,6 @@
 import { Button, Modal, ModalBody } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { T_ProductVariationVm, T_ProductVm } from "../../admin-types/CatalogAdmTypes";
+import { T_ProductVariationVm, T_ProductVm } from "../../../admin-types/CatalogAdmTypes";
 import {
    ChangeEvent,
    Dispatch,
@@ -9,7 +9,7 @@ import {
    useEffect,
    useState,
 } from "react";
-import { getImage } from "../../../webApis/CoreWebApi";
+import { getImage } from "../../../../webApis/CoreWebApi";
 
 type T_Props = {
    setShow: Dispatch<SetStateAction<boolean>>;

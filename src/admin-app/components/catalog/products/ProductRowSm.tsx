@@ -1,27 +1,16 @@
 import { FC, Fragment, useState } from "react";
-import { T_ProductListItem } from "../../admin-types/CatalogAdmTypes";
+import { T_ProductListItem } from "../../../admin-types/CatalogAdmTypes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-   faCheck,
-   faEdit,
-   faPause,
-   faTrash,
-   faX,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faPause, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import ViewProduct from "./ViewProduct";
 
 type T_Props = { item: T_ProductListItem };
 
-const ProductRow: FC<T_Props> = ({ item }) => {
+const ProductRowSm: FC<T_Props> = ({ item }) => {
    const [show, setShow] = useState(false);
    const navigate = useNavigate();
-
-   const getIcon = (state: boolean) => {
-      if (state) return <FontAwesomeIcon icon={faCheck} color="green" />;
-      else return <FontAwesomeIcon icon={faX} size="xs" color="red" />;
-   };
 
    return (
       <Fragment>
@@ -30,9 +19,7 @@ const ProductRow: FC<T_Props> = ({ item }) => {
          </Modal>
          <tr>
             <td className="text-start">{item.name}</td>
-            <td>{getIcon(item.hasOptions)}</td>
-            <td>{item.stockQuantity}</td>
-            <td>{new Date(item.createdOn).toLocaleString()}</td>
+            <td className="d-none d-sm-block">{item.stockQuantity}</td>
             <td>
                <Button
                   size="sm"
@@ -43,7 +30,7 @@ const ProductRow: FC<T_Props> = ({ item }) => {
                   View
                </Button>
             </td>
-            <td>
+            <td className="d-none d-sm-block">
                <Button variant="outline-primary" size="sm" className="mx-1">
                   <FontAwesomeIcon icon={faPause} />
                </Button>
@@ -64,4 +51,4 @@ const ProductRow: FC<T_Props> = ({ item }) => {
    );
 };
 
-export default ProductRow;
+export default ProductRowSm;

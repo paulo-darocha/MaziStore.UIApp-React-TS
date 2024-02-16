@@ -108,8 +108,6 @@ const AdminNavigation = () => {
                   <Button onClick={() => navigate("")} className="mx-2">
                      Adm Home
                   </Button>
-               </Navbar.Text>
-               <Navbar.Brand>
                   <Button variant="outline-dark" onClick={onClickStoreName}>
                      <FontAwesomeIcon icon={faArrowLeftRotate} />
                      <strong className="ms-1">Exit</strong>
@@ -127,9 +125,9 @@ const AdminNavigation = () => {
                         <FontAwesomeIcon icon={faSearchPlus} />
                      </Button>
                   </OverlayTrigger>
-               </Navbar.Brand>
+               </Navbar.Text>
 
-               <Navbar.Toggle onClick={() => setShow(true)} />
+               {/* <Navbar.Toggle onClick={() => setShow(true)} />
 
                <Navbar.Offcanvas show={show} onHide={() => setShow(false)}>
                   <Offcanvas.Header closeButton onClick={() => setShow(false)}>
@@ -141,9 +139,16 @@ const AdminNavigation = () => {
                         <NavDropdown.Item onClick={() => navigate("products")}>
                            <span onClick={() => setShow(false)}>Products</span>
                         </NavDropdown.Item>
+                        <NavDropdown.Item
+                           onClick={() => navigate("categories")}
+                        >
+                           <span onClick={() => setShow(false)}>
+                              Categories
+                           </span>
+                        </NavDropdown.Item>
                      </NavDropdown>
                   </Offcanvas.Body>
-               </Navbar.Offcanvas>
+               </Navbar.Offcanvas> */}
             </Container>
          </Navbar>
       </>

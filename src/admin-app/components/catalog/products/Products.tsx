@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import useProducts from "../../admin-hooks/useProductsHook";
-import { T_ProductResult } from "../../admin-types/CatalogAdmTypes";
+import useProducts from "../../../admin-hooks/useProductsHook";
+import { T_ProductResult } from "../../../admin-types/CatalogAdmTypes";
 import ProductsTable from "./ProductsTable";
 import ProductsTableSm from "./ProductsTableSm";
 import { Button } from "react-bootstrap";

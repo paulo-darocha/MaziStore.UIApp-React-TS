@@ -40,7 +40,7 @@ const CarouselWidget: FC<T_Props> = ({ instance }) => {
       <>
          <div>
             <div className="container-sm">
-               <div>
+               <div className="offset-md-1 col-md-10">
                   {carouselData && images && (
                      <Carousel interval={2000} style={{ cursor: "pointer" }}>
                         {carouselData.items.map(

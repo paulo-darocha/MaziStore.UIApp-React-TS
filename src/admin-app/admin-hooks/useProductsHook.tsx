@@ -82,11 +82,27 @@ const useProductsHook = () => {
       return response;
    };
 
+   const updateProductRepo = async (data: T_ProductForm) => {
+      const response = await axios
+         .put(`${productAdmApi}/${data.product.id}`, data, {
+            withCredentials: true,
+            headers: {
+               Authorization: `Bearer ${token}`,
+               "Content-Type": "multipart/form-data",
+            },
+         })
+         .then((res: AxiosResponse) => res.data)
+         .catch((err: AxiosError) => console.error(err.message));
+
+      return response;
+   };
+
    return {
       getProductListRepo,
       getProductByIdRepo,
       sendNewProductRepo,
       getProductOptionsRepo,
+      updateProductRepo,
    };
 };
 

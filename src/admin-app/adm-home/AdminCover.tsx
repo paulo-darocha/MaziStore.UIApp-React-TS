@@ -15,13 +15,25 @@ const AdminCover = () => {
                   variant="outline-primary"
                   onClick={() => navigate("products")}
                >
-                  See all products
+                  products
+               </Button>
+               <Button
+                  variant="outline-primary"
+                  onClick={() => navigate("categories")}
+               >
+                  categories
+               </Button>
+               <Button
+                  variant="outline-primary"
+                  onClick={() => navigate("inventory")}
+               >
+                  inventory
                </Button>
                <Button
                   variant="outline-primary"
                   onClick={() => navigate("comments")}
                >
-                  See latest comments
+                  comments
                </Button>
             </div>
          </div>

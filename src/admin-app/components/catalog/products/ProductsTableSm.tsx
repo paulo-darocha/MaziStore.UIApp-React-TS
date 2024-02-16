@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { T_ProductListItem } from "../../admin-types/CatalogAdmTypes";
-import ProductRow from "./ProductRow";
+import { T_ProductListItem } from "../../../admin-types/CatalogAdmTypes";
 import ProductRowSm from "./ProductRowSm";
 
 type T_Props = { items: T_ProductListItem[] };

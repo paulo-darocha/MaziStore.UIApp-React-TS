@@ -1,17 +1,17 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { T_ProductVm, T_ProductForm } from "../../admin-types/CatalogAdmTypes";
+import { T_ProductVm, T_ProductForm } from "../../../admin-types/CatalogAdmTypes";
 import { useForm } from "react-hook-form";
-import TinyMCEEditor from "../../adm-home/TinyMCEEditor";
+import TinyMCEEditor from "../../../adm-home/TinyMCEEditor";
 import { Button, Card, Modal } from "react-bootstrap";
-import useBrandsHook from "../../admin-hooks/useBrandsHook";
-import { T_BrandVm } from "../../admin-types/BrandTypes";
-import useTaxHook from "../../admin-hooks/useTaxHook";
-import { T_Tax } from "../../admin-types/TaxTypes";
-import useProductsHook from "../../admin-hooks/useProductsHook";
+import useBrandsHook from "../../../admin-hooks/useBrandsHook";
+import { T_BrandVm } from "../../../admin-types/BrandTypes";
+import useTaxHook from "../../../admin-hooks/useTaxHook";
+import { T_Tax } from "../../../admin-types/TaxTypes";
+import useProductsHook from "../../../admin-hooks/useProductsHook";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
-import { getImage } from "../../../webApis/CoreWebApi";
-import { useAppSelector } from "../../../redux-store/reduxStore";
+import { getImage } from "../../../../webApis/CoreWebApi";
+import { useAppSelector } from "../../../../redux-store/reduxStore";
 import { useNavigate } from "react-router-dom";
 
 const ProdEditGeneral = () => {

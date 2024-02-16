@@ -3,13 +3,13 @@ import {
    T_ProductOption,
    T_ProductOptionVm,
    T_ProductVariationVm,
-} from "../../admin-types/CatalogAdmTypes";
-import useProductsHook from "../../admin-hooks/useProductsHook";
+} from "../../../admin-types/CatalogAdmTypes";
+import useProductsHook from "../../../admin-hooks/useProductsHook";
 import { Button, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faX } from "@fortawesome/free-solid-svg-icons";
 import CreateProductVariations from "./CreateProductVariations";
-import { useAppSelector } from "../../../redux-store/reduxStore";
+import { useAppSelector } from "../../../../redux-store/reduxStore";
 
 const ProdEditVariations = () => {
    const [dev, setDev] = useState(false);

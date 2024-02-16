@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { T_ProductListItem } from "../../admin-types/CatalogAdmTypes";
+import { T_ProductListItem } from "../../../admin-types/CatalogAdmTypes";
 import { Button, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

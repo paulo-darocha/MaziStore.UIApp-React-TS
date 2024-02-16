@@ -1,0 +1,1 @@
+export type T_Warehouse = { id: number; name: string };

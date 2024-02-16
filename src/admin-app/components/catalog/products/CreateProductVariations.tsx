@@ -2,7 +2,7 @@ import { ChangeEvent, FC, useEffect, useState } from "react";
 import {
    T_ProductOptionVm,
    T_ProductVariationVm,
-} from "../../admin-types/CatalogAdmTypes";
+} from "../../../admin-types/CatalogAdmTypes";
 import { Button, Modal } from "react-bootstrap";
 import VariationPropModal from "./VariationPropModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
